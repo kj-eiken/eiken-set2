@@ -1320,27 +1320,51 @@ function renderLisQ(){
     pb.innerHTML=`<div class="part-banner"><h3>${PART_LABELS_LIS[q.part]}</h3><p>${PART_DESC_LIS[q.part]}</p></div>`;
   }else{pb.innerHTML='';}
 
-  // Script toggle button (全問共通)
+  // Script toggle button
+  // 第1部：会話文＋選択肢テキストをすべて表示
+  // 第2・3部：会話文＋Questionのみ（選択肢テキストは非表示）
   const rawScript = q.script || TTS_TEXT[lisIdx] || '';
   const scriptFormatted = rawScript.replace(/\\n/g,'<br>').replace(/\n/g,'<br>');
-  const questionLine = q.question ? `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #c8daf5;font-size:.78rem;color:#1a4a8a;font-weight:700;">${q.question}</div>` : '';
+  let scriptInner = `<div style="line-height:1.9;white-space:pre-wrap">${scriptFormatted}</div>`;
+  if(q.part===1){
+    const choicesScript = q.choices.map((c,i)=>`${i+1}. ${c}`).join('\n');
+    scriptInner += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #c8daf5;font-size:.78rem;line-height:1.8;white-space:pre-wrap">${choicesScript}</div>`;
+  } else {
+    if(q.question){
+      scriptInner += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #c8daf5;font-size:.78rem;color:#1a4a8a;font-weight:700;">${q.question}</div>`;
+    }
+  }
   const scriptHTML=`
     <button class="script-toggle-btn" onclick="toggleScript(this)">
       📄 <ruby>スクリプト<rt></rt></ruby>を<ruby>見<rt>み</rt></ruby>る
     </button>
     <div class="script-box" style="display:none">
       <div style="font-size:.72rem;color:#2563c0;font-weight:700;margin-bottom:6px;">📝 <ruby>音声<rt>おんせい</rt></ruby>スクリプト</div>
-      <div style="line-height:1.9;white-space:pre-wrap">${scriptFormatted}</div>
-      ${questionLine}
+      ${scriptInner}
     </div>
   `;
 
   // Choices
-  const chHTML=q.choices.map((c,i)=>{
-    let cls='lis-choice';
-    if(lisAnswered[lisIdx]!==null && i===lisAnswered[lisIdx]){cls+=' selected';}
-    return `<div class="${cls}" onclick="lisSelect(${i})" ${lisAnswered[lisIdx]!==null?'style="pointer-events:none"':''}><span class="lis-cn">${i+1}</span><span>${c}</span></div>`;
-  }).join('');
+  // 第1部：番号ボタンのみ（文字非表示）
+  // 第2・3部：番号＋文字表示（現状維持）
+  let chHTML;
+  if(q.part===1){
+    chHTML=q.choices.map((c,i)=>{
+      let cls='lis-choice';
+      const isSel=lisAnswered[lisIdx]!==null && i===lisAnswered[lisIdx];
+      if(isSel){cls+=' selected';}
+      return `<div class="${cls}" onclick="lisSelect(${i})" ${lisAnswered[lisIdx]!==null?'style="pointer-events:none"':''}
+        style="justify-content:center;padding:14px 10px;${lisAnswered[lisIdx]!==null?'pointer-events:none;':''}">
+        <span class="lis-cn" style="font-size:1.1rem;margin:0;">${i+1}</span>
+      </div>`;
+    }).join('');
+  } else {
+    chHTML=q.choices.map((c,i)=>{
+      let cls='lis-choice';
+      if(lisAnswered[lisIdx]!==null && i===lisAnswered[lisIdx]){cls+=' selected';}
+      return `<div class="${cls}" onclick="lisSelect(${i})" ${lisAnswered[lisIdx]!==null?'style="pointer-events:none"':''}><span class="lis-cn">${i+1}</span><span>${c}</span></div>`;
+    }).join('');
+  }
 
   // Feedback（部の途中では表示しない）
   let fbHTML='';
@@ -1637,19 +1661,21 @@ function lisPlayAudio(idx,speed){
   if(currentAudio){currentAudio.pause();currentAudio=null;}
 
   const voices=speechSynthesis.getVoices();
-  // 男声・女声を選ぶ（en-US優先）
   const enVoices=voices.filter(v=>v.lang==='en-US'||v.lang.startsWith('en'));
-  // 女声：名前にFemale/Samantha/Victoria/Karen/Moira/Tessa/Allisonを含むもの優先
   const femaleVoice=enVoices.find(v=>/female|samantha|victoria|karen|moira|tessa|allison/i.test(v.name))
     ||enVoices.find(v=>/zira|susan|hazel/i.test(v.name))
     ||enVoices[1]||enVoices[0]||null;
-  // 男声：名前にMale/Daniel/David/Alex/Ricky/Thomasを含むもの優先
   const maleVoice=enVoices.find(v=>/male|daniel|david|alex|ricky|thomas|fred/i.test(v.name))
     ||enVoices.find(v=>v!==femaleVoice)
     ||enVoices[0]||null;
 
   const rawScript=q.script||'';
   const hasDialog=rawScript.includes('M:')&&rawScript.includes('F:');
+
+  // 第2・3部はTTSで選択肢を読み上げない
+  const ttsBase = q.part===1
+    ? (TTS_TEXT[idx]||rawScript||'No text available.')
+    : (rawScript ? (rawScript + (q.question ? '\n'+q.question : '')) : (TTS_TEXT[idx]||'No text available.'));
 
   if(hasDialog){
     // 会話スクリプトを行ごとに分割して男女交互に読み上げ
@@ -1677,7 +1703,7 @@ function lisPlayAudio(idx,speed){
     speakNextLine();
   } else {
     // 第3部・ナレーション → 男声1名で読み上げ
-    const text=TTS_TEXT[idx]||rawScript||'No text available.';
+    const text=ttsBase;
     const utter=new SpeechSynthesisUtterance(text);
     currentUtterance=utter;
     utter.lang='en-US';
