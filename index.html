@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>英検準2級 演習アプリ Set2</title>
+<title>英検準2級 演習アプリ Set1</title>
 <style>
 :root{
   --bg:#f7f6f3;--surface:#fff;--border:#e2e0da;--border2:#cccac3;
@@ -484,7 +484,7 @@ button ruby rt{color:inherit}
 <!-- ===== ログイン画面 ===== -->
 <div class="login-overlay" id="login-overlay">
   <div class="login-box">
-    <div class="login-logo">🎧 英検<span style="color:#2563c4">準2級</span> Set2</div>
+    <div class="login-logo">🎧 英検<span style="color:#2563c4">準2級</span> Set1</div>
     <div class="login-sub">東進こども英語塾</div>
     <!-- 期限切れメッセージ（期限後に表示） -->
     <div class="login-expired" id="login-expired" style="display:none;">
@@ -520,7 +520,7 @@ button ruby rt{color:inherit}
   <div class="nav-inner">
     <!-- 上段：ロゴ・スコア・ログアウト・管理 -->
     <div class="nav-row1">
-      <div class="nav-logo"><ruby>英検<rt>えいけん</rt></ruby><span><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby></span> Set2</div>
+      <div class="nav-logo"><ruby>英検<rt>えいけん</rt></ruby><span><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby></span> Set1</div>
       <div class="nav-score" id="nav-score">0 / 61<ruby>問<rt>もん</rt></ruby></div>
       <button class="nav-tab-admin nav-logout" id="nav-tab-admin" onclick="goPage('admin')" style="display:none;margin-right:6px;color:#1a3a6e;background:#dbeafe;border:1px solid #b8d0f5;border-radius:5px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer;">📊 管理</button>
       <button class="nav-logout" onclick="doLogout()">ログアウト</button>
@@ -556,7 +556,7 @@ button ruby rt{color:inherit}
 <div class="page active" id="page-home">
   <div class="home-header">
     <div class="home-title"><ruby>英検<rt>えいけん</rt></ruby><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby> <ruby>演習<rt>えんしゅう</rt></ruby>アプリ</div>
-    <div class="home-sub">Set 2 ― <ruby>大問<rt>だいもん</rt></ruby>1〜6 ＋ <ruby>リスニング<rt></rt></ruby></div>
+    <div class="home-sub">Set 1 ― <ruby>大問<rt>だいもん</rt></ruby>1〜6 ＋ <ruby>リスニング<rt></rt></ruby></div>
   </div>
 
   <div id="restore-msg" style="display:none;background:#e1f5ee;border:1px solid #0f6e56;border-radius:var(--rsm);padding:.6rem 1rem;font-size:13px;color:#0f6e56;margin-bottom:1rem;"></div>
@@ -595,14 +595,14 @@ button ruby rt{color:inherit}
     <div class="sec-card" onclick="goPage('q3')">
       <div class="sc-top"><div class="sc-num">3</div><div class="sc-badge">2<ruby>問<rt>もん</rt></ruby></div></div>
       <div class="sc-title"><ruby>長文<rt>ちょうぶん</rt></ruby><ruby>読解<rt>どっかい</rt></ruby></div>
-      <div class="sc-sub">The Lost Camera</div>
+      <div class="sc-sub">The New Club Member</div>
       <div class="sc-count">4<ruby>択<rt>たく</rt></ruby> × 2</div>
       <div class="sc-score not-done" id="home-score-q3">📩 <ruby>送信<rt>そうしん</rt></ruby>するとスコアが<ruby>表示<rt>ひょうじ</rt></ruby>されます</div>
     </div>
     <div class="sec-card" onclick="goPage('q4')">
       <div class="sc-top"><div class="sc-num">4</div><div class="sc-badge">7<ruby>問<rt>もん</rt></ruby></div></div>
       <div class="sc-title"><ruby>長文<rt>ちょうぶん</rt></ruby>A・B</div>
-      <div class="sc-sub"><ruby>学校<rt>がっこう</rt></ruby>バザー＋ホタル</div>
+      <div class="sc-sub">E<ruby>メール<rt></rt></ruby>＋<ruby>説明文<rt>せつめいぶん</rt></ruby></div>
       <div class="sc-count">4<ruby>択<rt>たく</rt></ruby> × 7</div>
       <div class="sc-score not-done" id="home-score-q4">📩 <ruby>送信<rt>そうしん</rt></ruby>するとスコアが<ruby>表示<rt>ひょうじ</rt></ruby>されます</div>
     </div>
@@ -635,7 +635,7 @@ button ruby rt{color:inherit}
         <div class="sc-badge listening-badge">30<ruby>問<rt>もん</rt></ruby></div>
       </div>
       <div class="sc-title"><ruby>リスニング<rt></rt></ruby>（<ruby>第<rt>だい</rt></ruby>1<ruby>部<rt>ぶ</rt></ruby>〜<ruby>第<rt>だい</rt></ruby>3<ruby>部<rt>ぶ</rt></ruby>）</div>
-      <div class="sc-sub">Set 2</div>
+      <div class="sc-sub">Set 1</div>
       <!-- 部ごとのボックス -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:.6rem;">
         <div style="background:#fff;border:1px solid var(--blue-light);border-radius:var(--rsm);padding:6px 4px;text-align:center;">
@@ -738,7 +738,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q1">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set2 ― 大問1</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set1 ― 大問1</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -765,7 +765,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q2">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set2 ― 大問2</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set1 ― 大問2</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -792,7 +792,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q3">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set2 ― 大問3</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set1 ― 大問3</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -802,10 +802,10 @@ button ruby rt{color:inherit}
     <p><ruby>次<rt>つぎ</rt></ruby>の<ruby>英文<rt>えいぶん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>み，その<ruby>文意<rt>ぶんい</rt></ruby>にそって(21)と(22)の（　）に<ruby>入<rt>い</rt></ruby>れるのに<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものを1，2，3，4の<ruby>中<rt>なか</rt></ruby>から一つ<ruby>選<rt>えら</rt></ruby>びなさい。</p>
   </div>
   <div class="passage-box">
-    <div class="p-title">The Lost Camera</div>
+    <div class="p-title">The New Club Member</div>
     <div class="p-text">
-      <p>Kevin is a high school student who loves photography. One afternoon, he left his camera at the school library by mistake. He was very worried because it was a birthday gift from his parents. A librarian named Ms. Hayashi found it and put it in the lost-and-found box. She hoped that <span class="blank-slot">21</span>. She also wrote a note and placed it on the front desk so that students could see it.</p>
-      <p>The next morning, Kevin went to the library to look for his camera. He asked Ms. Hayashi about it, and she immediately showed him the lost-and-found box. Kevin was so relieved to find his camera there. He thanked Ms. Hayashi warmly. He realized that <span class="blank-slot">22</span>. From that day on, Kevin always checked his belongings before leaving any place.</p>
+      <p>Nana is a junior high school student in Osaka. She wanted to join the school's art club, but she was worried because she thought she was not talented enough. One day, she saw her classmate Mia, who was a member of the club, drawing a picture in the classroom. Mia told her that there was <span class="blank-slot">21</span>. She even said that many students improved by simply joining and practicing with others. Thanks to Mia's words, Nana finally decided to go to the club room.</p>
+      <p>The next day, Nana went to the art club for the first time. She felt nervous, but the club members welcomed her warmly. The teacher in charge, Mr. Inoue, gave her some paper and pencils and asked her to draw anything she liked. Nana knew that <span class="blank-slot">22</span>. Still, she picked up a pencil and started to draw slowly. When she finished, Mr. Inoue smiled and said she had a good sense of color. From that day, Nana began to look forward to club activities.</p>
     </div>
   </div>
   <div id="q3-container"></div>
@@ -826,7 +826,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q4">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set2 ― 大問4</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set1 ― 大問4</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -838,27 +838,27 @@ button ruby rt{color:inherit}
   <div class="sub-label"><div class="sub-main">4</div><div class="sub-sub">A</div></div>
   <div class="email-box">
     <div class="email-head">
-      <table><tr><td>From:</td><td>Lily Harper &lt;lily.harper@greenwave-mail.com&gt;</td></tr><tr><td>To:</td><td>Noah Tanaka &lt;noah.t0821@sunnymail.net&gt;</td></tr><tr><td>Date:</td><td>October 5</td></tr><tr><td>Subject:</td><td>About our school bazaar</td></tr></table>
+      <table><tr><td>From:</td><td>Sophie Green &lt;sophie.green@bluestar-mail.com&gt;</td></tr><tr><td>To:</td><td>Chloe Yamamoto &lt;chloe.y0915@sunnymail.net&gt;</td></tr><tr><td>Date:</td><td>March 14</td></tr><tr><td>Subject:</td><td>About the farewell party for Mr. Evans</td></tr></table>
     </div>
     <div class="email-body">
-      <p>Dear Noah,</p>
-      <p>I hope you are doing well. I am writing to you about our school bazaar next month. As you may know, our class will run a food stall this year. I have already asked a few classmates, and they are all excited about it. I think it will be a great opportunity to raise money for our class trip.</p>
-      <p>I am planning to sell homemade cookies and sandwiches at our stall. I believe cookies will be the most popular item because they are easy to eat and inexpensive. I would like to ask each student to bring some ingredients from home. If you have another idea for what we should sell, please tell me.</p>
-      <p>There is one thing I need help with. We need someone to design a poster to advertise our stall. I know you are good at drawing and design, so I was wondering if you could make one for us. It does not have to be very large — just big enough to catch people's attention.</p>
-      <p>Please reply and let me know what you think. I am looking forward to hearing from you.</p>
-      <p>Best regards,<br>Lily Harper</p>
+      <p>Dear Chloe,</p>
+      <p>I hope you are doing well. As you may already know, our homeroom teacher, Mr. Evans, will be leaving our school at the end of this month. He has taught us for three years, and I think it would be wonderful to organize a farewell party for him. I have already spoken to a few classmates, and they all agreed it was a great idea.</p>
+      <p>I am planning to hold the party at the school gym on Friday, March 28, after the last class. I would like to collect a small amount of money from each student in our class to buy a gift for Mr. Evans. He once mentioned that he enjoys reading, so I was thinking about getting him a set of books. However, if you have a better idea for a gift, please let me know.</p>
+      <p>There is one problem, though. I still need someone to give a short speech at the party to express our thanks to Mr. Evans. I know you have spoken in front of a large group before, so I was hoping you might be willing to do it. It does not have to be long — just two or three minutes would be enough.</p>
+      <p>Please write back and let me know what you think. I would really appreciate your help.</p>
+      <p>Best regards,<br>Sophie Green</p>
     </div>
   </div>
   <div id="q4a-container"></div>
   <div class="divider-sec"></div>
   <div class="sub-label"><div class="sub-main">4</div><div class="sub-sub">B</div></div>
   <div class="passage-box">
-    <div class="p-title">Fireflies and Light Pollution</div>
+    <div class="p-title">The Monarch Butterfly</div>
     <div class="p-text">
-      <p>Fireflies are small insects known for the light they produce from their bodies. This natural glow is called bioluminescence, and fireflies use it to communicate with each other, especially to find partners. Fireflies are found in many parts of the world, including Asia, Europe, and the Americas. They are most commonly seen in forests, fields, and near rivers during warm summer nights.</p>
-      <p>Scientists have discovered that fireflies are being seriously affected by a problem called light pollution. Light pollution happens when too much artificial light from cities and towns makes the night sky bright. Because fireflies rely on their natural glow to signal each other, the extra light from streetlights and buildings makes it harder for them to find a partner. As a result, fewer fireflies are able to reproduce, and their numbers have been falling in many regions.</p>
-      <p>Some communities around the world have started special programs to help protect fireflies. For example, in Taiwan, a national park created a "dark zone" where artificial lights are turned off at night. This allows fireflies to use their natural signals without any interference. Thousands of visitors come to the park every year to enjoy the beautiful light displays that fireflies create. The program has also helped local people understand the importance of protecting nature.</p>
-      <p>Experts say that one of the best ways to help fireflies is to reduce unnecessary outdoor lighting at home. People can turn off lights that are not being used, or use lights that point downward so they do not shine into the sky. Some towns have also started using special bulbs that produce less light at night. These small actions can make a big difference for fireflies and other creatures that depend on natural darkness to survive.</p>
+      <p>The monarch butterfly is one of the most well-known insects in North America. It is famous for its bright orange and black wings, which make it easy to recognize. Every year, millions of monarch butterflies travel from Canada and the United States all the way to the forests of central Mexico. This journey can be more than four thousand kilometers long, making it one of the longest migrations of any insect in the world.</p>
+      <p>Scientists have been studying how monarch butterflies find their way during migration. Research has shown that they use the position of the sun as a kind of compass to keep moving in the right direction. Even on cloudy days, they can sense the sun's position using special cells in their eyes. This ability allows them to travel accurately without getting lost, even over such a long distance.</p>
+      <p>When monarch butterflies arrive in Mexico, they gather in large groups on certain trees in the mountains. Millions of butterflies rest on the branches together, which keeps them warm during the cold winter months. Local people in Mexico have known about this gathering for many generations, and today it has become an important part of their culture. Tourists from around the world also visit the area every year to see this amazing natural event.</p>
+      <p>In recent years, the number of monarch butterflies has been decreasing. The main reasons are the loss of milkweed plants, which monarchs need to lay their eggs, and changes in weather patterns caused by climate change. Several organizations are now working to protect both the butterflies and their habitat. They are planting more milkweed in parks and gardens, and encouraging people to reduce the use of chemicals that harm the plants the butterflies depend on.</p>
     </div>
   </div>
   <div id="q4b-container"></div>
@@ -879,7 +879,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q5">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set2 ― 大問5</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set1 ― 大問5</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -929,7 +929,7 @@ button ruby rt{color:inherit}
       <ol class="photo-submit-steps">
         <li><span class="step-num">1</span><span><strong><ruby>解答<rt>かいとう</rt></ruby>を<ruby>手書<rt>てが</rt></ruby>きで<ruby>書<rt>か</rt></ruby>く</strong>（40〜50<ruby>語<rt>ご</rt></ruby>）<br><span style="font-size:12px;color:#6b4c00;line-height:1.8;">・<ruby>自分<rt>じぶん</rt></ruby>のノートに<ruby>書<rt>か</rt></ruby>く、または<ruby>問題用紙<rt>もんだいようし</rt></ruby>を<ruby>印刷<rt>いんさつ</rt></ruby>して<ruby>書<rt>か</rt></ruby>くことができます<br>・<strong>15<ruby>行以内<rt>ぎょういない</rt></ruby></strong>に<ruby>収<rt>おさ</rt></ruby>める・<ruby>鉛筆<rt>えんぴつ</rt></ruby>HB/Bを<ruby>使用<rt>しよう</rt></ruby>・<ruby>濃<rt>こ</rt></ruby>く<ruby>大<rt>おお</rt></ruby>きめに<ruby>書<rt>か</rt></ruby>く</span></span></li>
         <li><span class="step-num">2</span><span><strong><ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮影<rt>さつえい</rt></ruby>・<ruby>確認<rt>かくにん</rt></ruby>する</strong><br><span style="font-size:12px;color:#6b4c00;line-height:1.8;"><ruby>明<rt>あか</rt></ruby>るい<ruby>場所<rt>ばしょ</rt></ruby>で・<ruby>真上<rt>まうえ</rt></ruby>から・ピント<ruby>確認<rt>かくにん</rt></ruby></span></span></li>
-        <li><span class="step-num">3</span><span><strong><ruby>件名<rt>けんめい</rt></ruby>：「Set2 <ruby>大問<rt>だいもん</rt></ruby>5　<ruby>氏名<rt>しめい</rt></ruby>」でメール<ruby>送信<rt>そうしん</rt></ruby></strong></span></li>
+        <li><span class="step-num">3</span><span><strong><ruby>件名<rt>けんめい</rt></ruby>：「Set1 <ruby>大問<rt>だいもん</rt></ruby>5　<ruby>氏名<rt>しめい</rt></ruby>」でメール<ruby>送信<rt>そうしん</rt></ruby></strong></span></li>
         <li><span class="step-num">4</span><span><ruby>先生<rt>せんせい</rt></ruby>からコメント<ruby>入<rt>い</rt></ruby>りの<ruby>返信<rt>へんしん</rt></ruby>が<ruby>届<rt>とど</rt></ruby>きます</span></li>
       </ol>
       <div class="mail-addr">✉️ online-eigojuku@toshin.com</div>
@@ -947,7 +947,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q6">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set2 ― 大問6</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;">英検準2級 演習アプリ Set1 ― 大問6</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -958,7 +958,7 @@ button ruby rt{color:inherit}
   </div>
   <div class="passage-box" style="text-align:center">
     <div class="p-title">QUESTION</div>
-    <p style="font-size:17px;font-style:italic;font-weight:600">Do you think it is good for students to use smartphones in class?</p>
+    <p style="font-size:17px;font-style:italic;font-weight:600">Do you think it is a good idea for students to study at a library?</p>
   </div>
   <div style="display:flex;gap:0;margin-bottom:1rem;border-bottom:2px solid var(--border);">
     <button id="tab6-type" onclick="switchTab6('type')" style="padding:10px 20px;font-size:13px;font-weight:600;border:none;background:none;cursor:pointer;border-bottom:2px solid var(--accent);color:var(--accent);margin-bottom:-2px;">💻 <ruby>タイプして<rt></rt></ruby><ruby>提出<rt>ていしゅつ</rt></ruby></button>
@@ -986,7 +986,7 @@ button ruby rt{color:inherit}
       <ol class="photo-submit-steps">
         <li><span class="step-num">1</span><span><strong><ruby>解答<rt>かいとう</rt></ruby>を<ruby>手書<rt>てが</rt></ruby>きで<ruby>書<rt>か</rt></ruby>く</strong>（50〜60<ruby>語<rt>ご</rt></ruby>）<br><span style="font-size:12px;color:#6b4c00;line-height:1.8;">・<ruby>自分<rt>じぶん</rt></ruby>のノートに<ruby>書<rt>か</rt></ruby>く、または<ruby>問題用紙<rt>もんだいようし</rt></ruby>を<ruby>印刷<rt>いんさつ</rt></ruby>して<ruby>書<rt>か</rt></ruby>くことができます</span></span></li>
         <li><span class="step-num">2</span><span><strong><ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮影<rt>さつえい</rt></ruby>・<ruby>確認<rt>かくにん</rt></ruby>する</strong></span></li>
-        <li><span class="step-num">3</span><span><strong><ruby>件名<rt>けんめい</rt></ruby>：「Set2 <ruby>大問<rt>だいもん</rt></ruby>6　<ruby>氏名<rt>しめい</rt></ruby>」でメール<ruby>送信<rt>そうしん</rt></ruby></strong></span></li>
+        <li><span class="step-num">3</span><span><strong><ruby>件名<rt>けんめい</rt></ruby>：「Set1 <ruby>大問<rt>だいもん</rt></ruby>6　<ruby>氏名<rt>しめい</rt></ruby>」でメール<ruby>送信<rt>そうしん</rt></ruby></strong></span></li>
         <li><span class="step-num">4</span><span><ruby>先生<rt>せんせい</rt></ruby>からコメント<ruby>入<rt>い</rt></ruby>りの<ruby>返信<rt>へんしん</rt></ruby>が<ruby>届<rt>とど</rt></ruby>きます</span></li>
       </ol>
       <div class="mail-addr">✉️ online-eigojuku@toshin.com</div>
@@ -1078,8 +1078,8 @@ const Q1_IDS=['q1-1','q1-2','q1-3','q1-4','q1-5','q1-6','q1-7','q1-8','q1-9','q1
 const Q2_DEF=[{qid:'q2-16',label:'(16)',type:'single',conv:[['A',"Excuse me. Do you know the way to the Greenlake Theater?"],['B',"Yes. Go straight down this street, then turn right at the second light. After that, walk for about five minutes. The theater will be on your left."],['A',"Thanks. I'm not sure if I can get there, but I'll try."],['B',"Well, I'm going in the same direction, so (　16　). Please follow me."]]},{qid:'q2-17',label:'(17)',type:'single',conv:[['A',"Lucas, which gym do you go to? I'm thinking about joining one."],['B',"That's great! I go to the one next to the supermarket, but there's a new one closer to your place. It just opened last month."],['A',"Oh, where is it?"],['B',"It's right across from the movie theater. It's (　17　). I haven't been there, but people say it's good."]]},{qid:'q2-18',label:'(18)',type:'single',conv:[['A',"Hello. I'd like to sign up for one of the volunteer programs this summer."],['B',"Of course! May I ask (　18　)? We have plenty to choose from."],['A',"Sure. Is \"Let's Work as a Librarian\" still open? I believe it begins on August 10."],['B',"Let me check. Yes, it's still available. Please go ahead and fill out this form."]]},{type:'pair',label:'(19)・(20)',subQids:['q2-19','q2-20'],subLabels:['(19)','(20)'],conv:[['A',"Dad, where's my lunch? I need to take it to school today."],['B',"Lunch? But you (　19　). Why do you need to bring your own?"],['A',"From today, the cafeteria will be closed for repairs, and everyone must bring their own lunch. Didn't you see the letter from school? I gave it to you last week."],['B',"Hmm. Maybe I missed it. When will the cafeteria open again?"],['A',"Not until next Monday. So, do you have time to make it now?"],['B',"I don't think so. Can you (　20　) today?"],['A',"OK. I'll stop by my favorite bakery. But please don't forget to make my lunch for the rest of the week."],['B',"Alright, I won't."]]}];
 const Q3_IDS=['q3-21','q3-22'];
 const Q3_LABELS=['(21)','(22)'];
-const Q4A_DEF=[{qid:'q4-23',label:'(23)',text:"What is the main reason Lily is writing to Noah?"},{qid:'q4-24',label:'(24)',text:"What does Lily believe about cookies?"},{qid:'q4-25',label:'(25)',text:"What does Lily ask Noah to do?"}];
-const Q4B_DEF=[{qid:'q4-26',label:'(26)',text:"What is one thing we learn about fireflies in the first paragraph?"},{qid:'q4-27',label:'(27)',text:"What effect does light pollution have on fireflies?"},{qid:'q4-28',label:'(28)',text:"What did the national park in Taiwan do to help fireflies?"},{qid:'q4-29',label:'(29)',text:"What is one thing experts say people can do to help fireflies?"}];
+const Q4A_DEF=[{qid:'q4-23',label:'(23)',text:"Why is Sophie writing this email to Chloe?"},{qid:'q4-24',label:'(24)',text:"What does Sophie suggest as a gift for Mr. Evans?"},{qid:'q4-25',label:'(25)',text:"What is one thing Sophie asks Chloe to do?"}];
+const Q4B_DEF=[{qid:'q4-26',label:'(26)',text:"What is true about the monarch butterfly's migration?"},{qid:'q4-27',label:'(27)',text:"How do monarch butterflies find the right direction during migration?"},{qid:'q4-28',label:'(28)',text:"Why do monarch butterflies gather on trees in Mexico?"},{qid:'q4-29',label:'(29)',text:"What are organizations doing to help monarch butterflies?"}];
 
 const sel={q1:{},q2:{},q3:{},q4:{}};
 const submitted={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false};
@@ -1279,7 +1279,7 @@ function startListening(part){
   document.getElementById('lis-quiz').style.display='block';
   document.getElementById('lis-result').style.display='none';
   // introアナウンス再生
-  const introMap={1:'https://raw.githubusercontent.com/kj-eiken/eiken-audio/main/Set2_P1_intro.mp3',2:'https://raw.githubusercontent.com/kj-eiken/eiken-audio/main/Set2_P2_intro.mp3',3:'https://raw.githubusercontent.com/kj-eiken/eiken-audio/main/Set2_P3_intro.mp3'};
+  const introMap={1:'https://raw.githubusercontent.com/kj-eiken/eiken-audio1/main/Set1_P1_intro.mp3',2:'https://raw.githubusercontent.com/kj-eiken/eiken-audio1/main/Set1_P2_intro.mp3',3:'https://raw.githubusercontent.com/kj-eiken/eiken-audio1/main/Set1_P3_intro.mp3'};
   const introSrc=introMap[part];
   if(introSrc){
     if(currentAudio){currentAudio.pause();currentAudio=null;}
@@ -1327,9 +1327,11 @@ function renderLisQ(){
   const scriptFormatted = rawScript.replace(/\\n/g,'<br>').replace(/\n/g,'<br>');
   let scriptInner = `<div style="line-height:1.9;white-space:pre-wrap">${scriptFormatted}</div>`;
   if(q.part===1){
+    // 第1部：選択肢テキストもスクリプトに表示
     const choicesScript = q.choices.map((c,i)=>`${i+1}. ${c}`).join('\n');
     scriptInner += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #c8daf5;font-size:.78rem;line-height:1.8;white-space:pre-wrap">${choicesScript}</div>`;
   } else {
+    // 第2・3部：Questionのみ追加（選択肢テキストは非表示）
     if(q.question){
       scriptInner += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid #c8daf5;font-size:.78rem;color:#1a4a8a;font-weight:700;">${q.question}</div>`;
     }
@@ -1423,7 +1425,7 @@ function lisNext(){
     const isLastPart=(lisRange[1]===LIS_Q.length-1);
     if(isLastPart){
       if(currentAudio){currentAudio.pause();currentAudio=null;}
-      const endingAudio=new Audio('https://raw.githubusercontent.com/kj-eiken/eiken-audio/main/Set2_ending.mp3');
+      const endingAudio=new Audio('https://raw.githubusercontent.com/kj-eiken/eiken-audio1/main/Set1_ending.mp3');
       endingAudio.play().catch(()=>{});
       endingAudio.onended=()=>{currentAudio=null; showLisPartResult();};
       currentAudio=endingAudio;
@@ -1561,36 +1563,36 @@ function startNextPart(currentPart){
 
 // TTS用テキストマップ（第1・2部の会話内容）
 const TTS_TEXT = {
-  0:"It's raining again, Sarah. I know. The weather's been bad all weekend. It's supposed to rain tomorrow, too. Well, what do you want to do today?",
-  1:"Welcome to Bob's Burger Shack. Are you ready to order? Hi. Actually, I saw the sign in the window. I'm looking for a job. Oh, OK. Do you have any cooking experience?",
-  2:"Chesterton Library. Can I help you? Hi. I lost a book that I borrowed from your library. How much will I have to pay for it? Could you tell me the title?",
-  3:"I'm going to start taking violin lessons, Jessica. That's great. My sister plays the violin, too. Do you know where I can buy one?",
-  4:"I like your jacket, Adam. Did you buy it at the big sale at Huntsville Mall? Sale? I bought it online. That's too bad. You could have saved some money.",
-  5:"Welcome to Sam's Car Sales. Can I help you? Yes, I'm looking for a small car. Well, how about this size?",
-  6:"You look sad, Ted. What's wrong? Well, I was late for the team meeting this morning. My teammates forgave me, though. Anyone can make a mistake. It's important not to make the same mistake.",
-  7:"Good afternoon, ma'am. How may I help you? Those strawberries look pretty good. How much is the bowl of them? It's twelve dollars. They taste much sweeter than any other kind.",
-  8:"Are you ready to order, ma'am? Not yet. I heard from one of my friends that you served good salmon dishes. Yes, I recommend this grilled salmon because it's in season now.",
-  9:"I'm going to ask my parents if I can get a cat. How nice! But you have to take good care of it. I'll tell them that I'll be responsible for it.",
-  10:"Jun, you weren't at the hiking-club meeting yesterday. Hi, Anna. I had to visit my grandpa in the hospital. Did I miss anything important? Yes. Mr. Ito told us next month's hiking schedule. OK. I have to go to class now, so tell me about it at lunchtime. Question: What will Jun and Anna do at lunchtime?",
-  11:"Excuse me, waiter. Can I move to that table by the window? Certainly, ma'am. Is there a problem with this table? It's too close to the air conditioner. I'm starting to feel cold. I'm sorry. I'll bring your food to your new table. Question: What is one thing the woman tells the waiter?",
-  12:"You did a great job in the softball game, Danielle. You threw some good pitches. Thanks, Dad. I practiced throwing just like you showed me. I can see you've been practicing. The coach thinks I've improved, too. Question: What is one thing we learn about the man's daughter?",
-  13:"Maria, do you think the post office can deliver this package to Mr. Allan by tomorrow? Yeah, but it costs a lot of money for overnight delivery. Oh, what about the Speedy Express delivery service? I don't recommend it. They lost one of my packages. I always send packages by bicycle delivery. It's cheap, and your package will be delivered right away. Question: How does the woman usually send packages?",
-  14:"Hello, Mike. It's Sarah. I have an assignment due tomorrow, but I can't get my laptop to work. Hi, Sarah. Have you tried restarting it? That might fix the problem. That's a good idea. I'll try that. Thanks! No problem. Call me again if that doesn't work. Question: What does Mike suggest Sarah do?",
-  15:"Excuse me, sir. Is there a problem with the main entrance to the supermarket? Yes, ma'am. The floor is being repaired, and it's not safe to walk there. Oh, I see. Thank you for telling me. I guess I'll use the side entrance. That's right. Thank you for your cooperation. Question: What is the woman's problem?",
-  16:"Excuse me. Do you know where the nearest pharmacy is? Yes. It's around the corner on Maple Street. Thank you. I need to pick up some medicine for headaches. No problem. Have a good day. Question: What does the woman want to do?",
-  17:"Hello? Hey, Emily, do you want to go to the basketball game tomorrow? I'd love to, Rob, but I have to study for my math exam. I wish I could go with you. That's too bad. Maybe you can come with me next time. Question: What will the girl probably do tomorrow?",
-  18:"Hi, John. You don't look well. Are you OK? No. I think I'm getting sick. Do you want me to go and get you some medicine? No, thanks. I think I'll just stay here and rest. Question: What does the woman offer to do for the man?",
-  19:"Welcome to ABC Hotel. How was your journey to the conference? It was fine, thank you. I took a taxi because it was the quickest way to get here from the station. Oh, that's good. Did you have any trouble finding the hotel? No. The taxi driver knew exactly where it was. Question: What is one thing the man tells the woman?",
-  20:"Sarah and John like going hiking together, but they usually go in the summer. John suggested that they go hiking in winter, too. Sarah thought it would be too cold, but John said she should wear warm clothes. He also said that she should pack some snacks, so they can eat them during the hike. Sarah agreed. Question: What is one thing John told Sarah to do?",
-  21:"Sarah is a high school student who loves animals. She often goes to an animal hospital near her home to help the veterinarians, and she has even done this on the weekends. She hopes to become a veterinarian one day so that she can take care of animals for a living. Question: What is one thing the speaker says about Sarah?",
-  22:"Mark is looking forward to the weekend. On Saturday, his mother is having a birthday party for him. She has invited his friends, and Mark hopes they will all come. He is especially excited because his best friend from high school will come. They have not seen each other in a long time. Question: Why is Mark especially excited about the party?",
-  23:"Ken had a red pencil case. Recently, it became torn. He decided to buy a new one. Yesterday, he went to a store that sells stationery, and he bought a blue pencil case there. He thinks it is great that he got to choose the color of his new pencil case. Question: What did Ken do yesterday?",
-  24:"Marie Curie was a physicist and a chemist. She studied radioactivity because she wanted to understand atomic science. Marie and her husband used their own money to start a research laboratory, and later, Marie received money from the French government. She won Nobel Prizes in physics and chemistry for her work in radioactivity. Question: Why did Marie Curie study radioactivity?",
-  25:"Emma went to a concert with her older brother. She was excited because the band played her favorite song, and she danced a lot while it was being played. She was also happy when her brother bought a CD of the band's music after the concert. That way, she could listen to more of the band's songs at home. Question: Why was Emma happy?",
-  26:"Basketball is a sport that involves a lot of movement. It improves players' strength, speed, and fitness. College and professional basketball players often play long games. Because of this, they need to make sure that they have the strength to keep going until the end of the game. Question: What is one thing the speaker says about basketball?",
-  27:"Peter likes music, and he plays the guitar. He usually plays with his friends in a park near his apartment every Sunday. Peter is the only one of his friends who does not sing, so he is learning how to sing, too. He hopes that next year he will be able to sing with his friends as well. Question: What does Peter want to do next year?",
-  28:"Helen has a lot of homework, and she keeps it in a special folder. Yesterday, she did some spelling homework, and her mother told her to put the paper in the folder. This morning, Helen forgot to take the folder with her on the bus. Luckily, her mother was able to bring the folder to Helen at school. Question: What did Helen forget to take with her?",
-  29:"Anna's uncle has an orange tree in his garden. The oranges are big and very sweet. Anna is going to visit her uncle's house later, and she wants to make orange cookies using the oranges from her uncle's tree. She thinks it will be very fun to bake the cookies together with him. Question: What does Anna want to do?"
+  0:"Excuse me. Could you tell me where the nearest post office is? Sure. Go straight down this street and turn left at the traffic light. Thank you. Is it far from here?",
+  1:"Hi, Jake. Did you finish the science homework? Not yet. I've been busy with baseball practice all week. The deadline is tomorrow morning. Are you going to be OK?",
+  2:"Honey, have you seen my glasses? I can't find them anywhere. Did you check the kitchen table? You usually leave them there. I already looked there. They weren't on the table.",
+  3:"Excuse me. I'd like to return this sweater. I bought it last Saturday. Sure. Do you have your receipt with you? Oh no. I think I left it at home.",
+  4:"Lucy, the gym has a new yoga class starting next month. Really? What day is it on? Every Tuesday and Thursday evening from seven to eight.",
+  5:"Dad, can I borrow the car this afternoon? What do you need it for, Amy? I need to drive my friend to the airport. Her flight leaves at four.",
+  6:"Hi, this is Kevin calling. Is Dr. Patel available? I'm afraid she's with a patient right now. Can I take a message? Yes, please. Could you ask her to call me back when she's free?",
+  7:"Tom, you look tired. Did you sleep well last night? Not really. My neighbors were having a loud party until midnight. Oh, that's terrible. Did you say anything to them?",
+  8:"Excuse me. Is this seat taken? No, go ahead. I'm saving this one for my friend, though. Oh, which one is your friend sitting in?",
+  9:"Hi. I'm calling about the apartment you have for rent. Yes, of course. It's a two-bedroom apartment on the third floor. Sounds good. Is it possible to see it this weekend?",
+  10:"Mom, have you seen my soccer shoes? I can't find them anywhere. Did you check the garage? I think I saw them near the door. Oh, you're right. They were behind the bike. Thanks, Mom. Don't forget to clean them before the game tomorrow. Question: What will the boy do before tomorrow's game?",
+  11:"Excuse me. I ordered a chicken sandwich, but I got a tuna sandwich. I'm so sorry about that. I'll bring you the right one right away. Thank you. Also, could I get some more water, please? Of course. I'll be right back. Question: Why did the woman talk to the man?",
+  12:"Hey Sarah, I heard you went to the new art museum last weekend. Yes! It was amazing. There was a special exhibition of Japanese paintings. That sounds interesting. How long will the exhibition be on? Until the end of next month. You should definitely go. Question: What does the woman say about the exhibition?",
+  13:"Brian, are you coming to Kevin's birthday party on Saturday? I'd love to, but I have a piano recital that afternoon. Oh, that's too bad. What time does your recital finish? Around four o'clock, so I might be able to stop by after. Question: Why can't Brian go to the party in the afternoon?",
+  14:"Good morning. I'm here to pick up a package. My name is David Green. Let me check. Yes, I have it here. Could I see your ID, please? Sure. Here's my driver's license. Thank you. Please sign here and the package is yours. Question: What does the woman ask the man to show her?",
+  15:"Mark, did you hear that the school library is getting new computers? Yes! I heard they're also adding more study rooms. That's great. The library gets really crowded during exam week. I know. I'll definitely use the new study rooms when they open. Question: What does Mark say he will do when the new rooms open?",
+  16:"Hi, I'd like to sign up for the cooking class that starts next month. Sure. We have classes on Monday evenings and Saturday mornings. I work on Monday evenings, so Saturday mornings would be better for me. Great. The class fee is fifty dollars for four sessions. Question: When will the man take the cooking class?",
+  17:"Daniel, I'm thinking of getting a dog. Any advice? Sure. First, think about how much time you can spend with it every day. I'm at home most of the time, so that should be fine. Then you should also consider the size of your apartment. Question: What does Daniel say the woman should think about first?",
+  18:"Hi, Linda. Are you free this Sunday? A group of us are going hiking. I'd love to, but I promised my sister I'd help her move to her new apartment. That's too bad. Maybe next time. Yes, definitely. Send me the details and I'll come next time for sure. Question: Why can't Linda go hiking on Sunday?",
+  19:"Excuse me. I found this wallet near the entrance. I think someone dropped it. Thank you for bringing it in. I'll check if anyone has reported it missing. There's some cash and a library card inside, but no name. OK. We'll keep it here at the front desk. The owner can pick it up anytime. Question: What did the woman find near the entrance?",
+  20:"Good morning, everyone! Welcome to Green Valley Nature Park. The park gates are now open. Today, we have a bird-watching tour at nine a.m. and a guided nature walk at eleven a.m. Please note that the picnic area is closed today for repairs. Food is available at the main café near the entrance. We hope you enjoy your visit. Question: Where is this announcement being made?",
+  21:"Attention, all students. The school swimming pool will be closed next Monday and Tuesday for cleaning. Students who have swimming club practice on those days should use the community pool on Oak Street instead. The school pool will reopen on Wednesday morning. Thank you for your understanding. Question: What is one thing the speaker says?",
+  22:"Lisa is a university student who loves animals. She volunteers at a local animal shelter every Saturday morning. She helps feed the animals and clean their cages. Lisa hopes to become a veterinarian after she graduates, and she feels that her work at the shelter is great experience for her future career. Question: Why does Lisa volunteer at the animal shelter?",
+  23:"Michael used to drive to work every day, but last spring he decided to start cycling instead. It takes a little longer, but he enjoys the fresh air and exercise. He has also saved a lot of money on gas. His friends were surprised at first, but now three of them have started cycling to work, too. Question: What is one benefit Michael has had from cycling to work?",
+  24:"Honey bees are very important insects. They help plants grow by carrying pollen from one flower to another. This process is called pollination. Without honey bees, many fruits and vegetables would not be able to grow. Scientists are worried because the number of honey bees around the world has been decreasing in recent years. Question: What is one thing we learn about honey bees?",
+  25:"Good afternoon, and welcome to Riverside Museum. Please note that photography is allowed in most areas of the museum, but flash photography is not permitted near the old paintings. The museum gift shop on the first floor is having a special sale this week. Also, the café on the second floor will close early today at three p.m. Question: What does the speaker say about photography?",
+  26:"The Arctic fox is a small animal that lives in very cold places, such as northern Canada and Russia. It has thick white fur in winter, which helps it stay warm and hide in the snow. In summer, its fur changes to brown or gray to blend in with rocks and plants. Arctic foxes can survive in temperatures as low as minus fifty degrees Celsius. Question: What is one thing we learn about the Arctic fox?",
+  27:"Sophie wanted to learn how to play the guitar, but she could not afford lessons. She decided to search for free tutorial videos online and practiced every day after school. After six months, she could play several songs well. Her parents were so impressed that they bought her a new guitar for her birthday. Question: How did Sophie learn to play the guitar?",
+  28:"Table tennis, also known as ping-pong, is one of the most popular sports in the world. It was first played in England in the 1880s as a form of indoor tennis. Today, millions of people enjoy it both as a casual activity and as a competitive sport. China has been especially successful in international table tennis competitions. Question: What is one thing we learn about table tennis?",
+  29:"Kevin wanted to visit his grandmother for her birthday, but he had no money for the train ticket. He asked his older sister if she could lend him some money, but she was also short of cash. In the end, his parents offered to drive him there, and they all spent the afternoon together celebrating. Question: How did Kevin get to his grandmother's house?"
 };
 let currentUtterance=null;
 // ブラウザによってはvoicesが非同期で読み込まれるため事前にロードしておく
@@ -1661,10 +1663,13 @@ function lisPlayAudio(idx,speed){
   if(currentAudio){currentAudio.pause();currentAudio=null;}
 
   const voices=speechSynthesis.getVoices();
+  // 男声・女声を選ぶ（en-US優先）
   const enVoices=voices.filter(v=>v.lang==='en-US'||v.lang.startsWith('en'));
+  // 女声：名前にFemale/Samantha/Victoria/Karen/Moira/Tessa/Allisonを含むもの優先
   const femaleVoice=enVoices.find(v=>/female|samantha|victoria|karen|moira|tessa|allison/i.test(v.name))
     ||enVoices.find(v=>/zira|susan|hazel/i.test(v.name))
     ||enVoices[1]||enVoices[0]||null;
+  // 男声：名前にMale/Daniel/David/Alex/Ricky/Thomasを含むもの優先
   const maleVoice=enVoices.find(v=>/male|daniel|david|alex|ricky|thomas|fred/i.test(v.name))
     ||enVoices.find(v=>v!==femaleVoice)
     ||enVoices[0]||null;
@@ -1672,18 +1677,24 @@ function lisPlayAudio(idx,speed){
   const rawScript=q.script||'';
   const hasDialog=rawScript.includes('M:')&&rawScript.includes('F:');
 
-  // 第2・3部はTTSで選択肢を読み上げない
+  // 第2・3部はTTSで選択肢を読み上げない（会話文＋Questionのみ）
+  // 第1部は選択肢テキストもTTSで読み上げる
   const ttsBase = q.part===1
     ? (TTS_TEXT[idx]||rawScript||'No text available.')
     : (rawScript ? (rawScript + (q.question ? '\n'+q.question : '')) : (TTS_TEXT[idx]||'No text available.'));
 
   if(hasDialog){
     // 会話スクリプトを行ごとに分割して男女交互に読み上げ
+    // 第2・3部はscriptの行のみ（選択肢は読まない）。最後にQuestionを追加読み上げ
     const lines=rawScript.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+    // 第2・3部：Questionテキストを末尾に追加（選択肢は含めない）
+    const allLines = (q.part!==1 && q.question)
+      ? [...lines, q.question.replace(/<[^>]+>/g,'')]
+      : lines;
     let lineIdx=0;
     function speakNextLine(){
-      if(lineIdx>=lines.length){onEnd();return;}
-      const line=lines[lineIdx];
+      if(lineIdx>=allLines.length){onEnd();return;}
+      const line=allLines[lineIdx];
       const isMale=line.startsWith('M:');
       const isFemale=line.startsWith('F:');
       const text=line.replace(/^[MF]:\s*/,'');
@@ -1774,7 +1785,7 @@ function showLisReview(){
 // =========================================================
 // ★ 保存・復元・送信
 // =========================================================
-const LS_KEY='eiken_pre2_set2_v2';
+const LS_KEY='eiken_pre2_set1_v2';
 
 function saveState(){
   try{
@@ -1879,8 +1890,8 @@ async function sendResults(mode){
 
   let subject,body;
   if(mode==='all'){
-    subject=`【Set2 全結果】${studentId} ${name}`;
-    body=`【英検準2級 Set2 学習結果（全大問＋リスニング）】
+    subject=`【Set1 全結果】${studentId} ${name}`;
+    body=`【英検準2級 Set1 学習結果（全大問＋リスニング）】
 
 生徒番号：${studentId}
 氏名　　：${name}
@@ -1913,8 +1924,8 @@ ${(!q5text||!q6text)?'※手書き写メは別途メールで送付してくだ�
 
   }else if(mode==='listening'){
     if(!lisSubmitted){alert('リスニングをすべて解答してから送信してください。');return;}
-    subject=`【Set2 リスニング全体結果】${studentId} ${name}`;
-    body=`【英検準2級 Set2 リスニング結果】
+    subject=`【Set1 リスニング全体結果】${studentId} ${name}`;
+    body=`【英検準2級 Set1 リスニング結果】
 
 生徒番号：${studentId}
 氏名　　：${name}
@@ -1934,8 +1945,8 @@ ${(!q5text||!q6text)?'※手書き写メは別途メールで送付してくだ�
     const pNum=mode==='listening-p1'?1:mode==='listening-p2'?2:3;
     const pLabel=['','第1部（会話の応答）','第2部（会話内容）','第3部（文の内容）'][pNum];
     const pScore=[0,lisScores.p1,lisScores.p2,lisScores.p3][pNum];
-    subject=`【Set2 リスニング${pLabel}】${studentId} ${name}`;
-    body=`【英検準2級 Set2 リスニング結果】
+    subject=`【Set1 リスニング${pLabel}】${studentId} ${name}`;
+    body=`【英検準2級 Set1 リスニング結果】
 
 生徒番号：${studentId}
 氏名　　：${name}
@@ -1949,8 +1960,8 @@ ${(!q5text||!q6text)?'※手書き写メは別途メールで送付してくだ�
 
   }else if(mode==='q5'){
     if(!submitted.q5){alert('先に「解答する」ボタンを押してください。');return;}
-    subject=`【Set2 大問5（Eメール）】${studentId} ${name}`;
-    body=`【英検準2級 Set2 大問5（Eメール）】
+    subject=`【Set1 大問5（Eメール）】${studentId} ${name}`;
+    body=`【英検準2級 Set1 大問5（Eメール）】
 
 生徒番号：${studentId}
 氏名　　：${name}
@@ -1963,8 +1974,8 @@ ${q5text?'【解答本文】\n'+q5text:'※手書き写メは別途メールで�
 
   }else if(mode==='q6'){
     if(!submitted.q6){alert('先に「解答する」ボタンを押してください。');return;}
-    subject=`【Set2 大問6（意見文）】${studentId} ${name}`;
-    body=`【英検準2級 Set2 大問6（意見文）】
+    subject=`【Set1 大問6（意見文）】${studentId} ${name}`;
+    body=`【英検準2級 Set1 大問6（意見文）】
 
 生徒番号：${studentId}
 氏名　　：${name}
@@ -1979,8 +1990,8 @@ ${q6text?'【解答本文】\n'+q6text:'※手書き写メは別途メールで�
     const labelMap={q1:'大問1（語彙・文法・熟語）',q2:'大問2（会話文空欄補充）',q3:'大問3（長文読解）',q4:'大問4（長文A・B）'};
     const scoreMap={q1:s1,q2:s2,q3:s3,q4:s4};
     if(!submitted[mode]){alert('先に解答して「解答する」ボタンを押してください。');return;}
-    subject=`【Set2 ${labelMap[mode]}】${studentId} ${name}`;
-    body=`【英検準2級 Set2 学習結果】\n\n生徒番号：${studentId}\n氏名　　：${name}\n送信日時：${dateStr}\n\n━━━━━━━━━━━━━━\n■ ${labelMap[mode]}\nスコア：${scoreMap[mode]}\n━━━━━━━━━━━━━━`;
+    subject=`【Set1 ${labelMap[mode]}】${studentId} ${name}`;
+    body=`【英検準2級 Set1 学習結果】\n\n生徒番号：${studentId}\n氏名　　：${name}\n送信日時：${dateStr}\n\n━━━━━━━━━━━━━━\n■ ${labelMap[mode]}\nスコア：${scoreMap[mode]}\n━━━━━━━━━━━━━━`;
   }
   // GAS経由でメール送信
   const studentEmail=(document.getElementById('student-email')||{}).value||'';
@@ -2113,7 +2124,7 @@ function printSection(section, mode){
   const origTitle = document.title;
   const labelMap = {q1:'大問1',q2:'大問2',q3:'大問3',q4:'大問4',q5:'大問5',q6:'大問6'};
   const modeLabel = mode === 'answer' ? '解答解説' : '問題用紙';
-  document.title = '英検準2級 Set2 ' + (labelMap[section]||section) + ' ' + modeLabel;
+  document.title = '英検準2級 Set1 ' + (labelMap[section]||section) + ' ' + modeLabel;
 
   window.print();
 
@@ -2132,7 +2143,7 @@ function printSection(section, mode){
 // =========================================================
 
 // ===== ログイン =====
-const GAS_URL='https://script.google.com/macros/s/AKfycbwM0-8PXaKG6gWpm9cL1TBQYiyjdjP9pMqSl7eaFzfKLT-6d80LdhedQmzMG44GDyBdMA/exec';
+const GAS_URL='https://script.google.com/macros/s/AKfycbzcapAkU0H0YZF4_SATjIceILBA07K5e-GgFG-9vRTd2SH21YkIZkbaBewgtdE-BiJBmA/exec';
 
 async function doLogin(){
   const id=document.getElementById('login-id').value.trim();
@@ -2871,7 +2882,7 @@ function adminDownloadCSV() {
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = '英検準2級Set2_結果_' + fmtDateFile() + '.csv';
+  a.href = url; a.download = '英検準2級Set1_結果_' + fmtDateFile() + '.csv';
   a.click(); URL.revokeObjectURL(url);
 }
 
@@ -2894,7 +2905,7 @@ function adminDownloadExcel() {
   const blob = new Blob(['﻿' + html], {type:'application/vnd.ms-excel;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = '英検準2級Set2_結果_' + fmtDateFile() + '.xls';
+  a.href = url; a.download = '英検準2級Set1_結果_' + fmtDateFile() + '.xls';
   a.click(); URL.revokeObjectURL(url);
 }
 
