@@ -2285,6 +2285,25 @@ async function doLogin(){
     Q6_MODEL_YES = data.Q6_MODEL_YES || '';
     Q6_MODEL_NO  = data.Q6_MODEL_NO  || '';
     Q6_POINTS   = data.Q6_POINTS   || [];
+    
+    // QDから Q1_TEXTS, Q1_IDS, Q1_LABELS を構築
+    Q1_IDS = Object.keys(QD).filter(k => k.startsWith('q1-')).sort();
+    Q1_TEXTS = Q1_IDS.map(id => QD[id].text || '');
+    Q1_LABELS = Q1_IDS.map((_, i) => `(${i+1})`);
+    
+    // Q2_DEF を構築
+    const q2Keys = Object.keys(QD).filter(k => k.startsWith('q2-')).sort();
+    Q2_DEF = q2Keys.map(id => QD[id]);
+    
+    // Q3_IDS, Q3_LABELS
+    Q3_IDS = ['q3-21', 'q3-22'];
+    Q3_LABELS = ['(21)', '(22)'];
+    
+    // Q4A_DEF, Q4B_DEF
+    const q4Keys = Object.keys(QD).filter(k => k.startsWith('q4-')).sort();
+    Q4A_DEF = q4Keys.filter(id => parseInt(id.split('-')[1]) <= 25);
+    Q4B_DEF = q4Keys.filter(id => parseInt(id.split('-')[1]) > 25);
+    
     // ローディング非表示
     const loadingEl = document.getElementById('questions-loading');
     if(loadingEl) loadingEl.style.display = 'none';
