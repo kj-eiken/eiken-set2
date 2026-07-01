@@ -1072,19 +1072,71 @@ const PART_DESC_LIS = {
 // =========================================================
 // ★ 大問1〜6 既存ロジック
 // =========================================================
-const Q1_TEXTS=['A: Michael, this meal is (　) delicious! It\'s the best pasta that I\'ve ever eaten.<br>B: Really? I\'m glad you like it.','Dennis was recently (　) to his company\'s New York office. He likes his new apartment and is slowly finding out about the city.','Today, Mr. Carter taught his students about the (　) of smoking. The students learned about the health problems it can cause.','A: Why did you choose that hotel for our vacation?<br>B: It had good reviews, and the price seemed (　) compared to other options.','At the start of the lesson, Mr. Harris made an (　). He told the class that a student teacher would be teaching his lessons for the next few weeks.','The mayor has asked several local artists to create (　) that will be put in the city\'s parks. The artists have been told that they can use either metal or stone.','When Adam buys expensive items, he always keeps the (　) in a safe place. That way, he can return an item if it has a problem.','People can (　) their friends to support them during difficult times and help them find solutions.','A: How many points did you (　) in the math test?<br>B: Only 50 out of 100. I did really badly.','After running ten kilometers, Evan\'s legs started to (　). He sat down to rest and did some leg stretching exercises.','Almost all the pets in the shelter found homes, (　) one dog that was still waiting for a family.','A: (　)! There\'s a bee near your face!<br>B: Oh, I didn\'t see it. Thanks for letting me know.','A: Dad, can I have a new smartphone for my birthday this year?<br>B: No, that\'s (　), Megan. Your birthday is next month, and you just got a new one last month.','A: Have you decided which club to join, Chris?<br>B: No. I can\'t (　). They all seem so interesting.','Before buying a new smartphone, you should (　) several different ones. That way, you can find one that is right for you.'];
-const Q1_LABELS=['(1)','(2)','(3)','(4)','(5)','(6)','(7)','(8)','(9)','(10)','(11)','(12)','(13)','(14)','(15)'];
-const Q1_IDS=['q1-1','q1-2','q1-3','q1-4','q1-5','q1-6','q1-7','q1-8','q1-9','q1-10','q1-11','q1-12','q1-13','q1-14','q1-15'];
-const Q2_DEF=[{qid:'q2-16',label:'(16)',type:'single',conv:[['A',"Excuse me. Do you know the way to the Greenlake Theater?"],['B',"Yes. Go straight down this street, then turn right at the second light. After that, walk for about five minutes. The theater will be on your left."],['A',"Thanks. I'm not sure if I can get there, but I'll try."],['B',"Well, I'm going in the same direction, so (　16　). Please follow me."]]},{qid:'q2-17',label:'(17)',type:'single',conv:[['A',"Lucas, which gym do you go to? I'm thinking about joining one."],['B',"That's great! I go to the one next to the supermarket, but there's a new one closer to your place. It just opened last month."],['A',"Oh, where is it?"],['B',"It's right across from the movie theater. It's (　17　). I haven't been there, but people say it's good."]]},{qid:'q2-18',label:'(18)',type:'single',conv:[['A',"Hello. I'd like to sign up for one of the volunteer programs this summer."],['B',"Of course! May I ask (　18　)? We have plenty to choose from."],['A',"Sure. Is \"Let's Work as a Librarian\" still open? I believe it begins on August 10."],['B',"Let me check. Yes, it's still available. Please go ahead and fill out this form."]]},{type:'pair',label:'(19)・(20)',subQids:['q2-19','q2-20'],subLabels:['(19)','(20)'],conv:[['A',"Dad, where's my lunch? I need to take it to school today."],['B',"Lunch? But you (　19　). Why do you need to bring your own?"],['A',"From today, the cafeteria will be closed for repairs, and everyone must bring their own lunch. Didn't you see the letter from school? I gave it to you last week."],['B',"Hmm. Maybe I missed it. When will the cafeteria open again?"],['A',"Not until next Monday. So, do you have time to make it now?"],['B',"I don't think so. Can you (　20　) today?"],['A',"OK. I'll stop by my favorite bakery. But please don't forget to make my lunch for the rest of the week."],['B',"Alright, I won't."]]}];
-const Q3_IDS=['q3-21','q3-22'];
-const Q3_LABELS=['(21)','(22)'];
-const Q4A_DEF=[{qid:'q4-23',label:'(23)',text:"Why is Sophie writing this email to Chloe?"},{qid:'q4-24',label:'(24)',text:"What does Sophie suggest as a gift for Mr. Evans?"},{qid:'q4-25',label:'(25)',text:"What is one thing Sophie asks Chloe to do?"}];
-const Q4B_DEF=[{qid:'q4-26',label:'(26)',text:"What is true about the monarch butterfly's migration?"},{qid:'q4-27',label:'(27)',text:"How do monarch butterflies find the right direction during migration?"},{qid:'q4-28',label:'(28)',text:"Why do monarch butterflies gather on trees in Mexico?"},{qid:'q4-29',label:'(29)',text:"What are organizations doing to help monarch butterflies?"}];
+// =========================================================
+// ★ GAS から問題データを取得（Set2用）
+// =========================================================
+let Q1_TEXTS = [];
+let Q1_LABELS = [];
+let Q1_IDS = [];
+let Q2_DEF = [];
+let Q3_IDS = [];
+let Q3_LABELS = [];
+let Q4A_DEF = [];
+let Q4B_DEF = [];
+let sel = {q1:{},q2:{},q3:{},q4:{}};
+let submitted = {q1:false,q2:false,q3:false,q4:false,q5:false,q6:false};
+let scores = {q1:0,q2:0,q3:0,q4:0,q5:0,q6:0,listening:0};
+let sentScores = {q1:false,q2:false,q3:false,q4:false,q5:false,q6:false,lp1:false,lp2:false,lp3:false};
 
-const sel={q1:{},q2:{},q3:{},q4:{}};
-const submitted={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false};
-const scores={q1:0,q2:0,q3:0,q4:0,q5:0,q6:0,listening:0};
-const sentScores={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false,lp1:false,lp2:false,lp3:false};
+async function loadQuestionsFromGAS(studentId) {
+  try {
+    const response = await fetch(GAS_URL + '?action=getQuestions&studentId=' + studentId + '&callback=window.onQuestionsLoaded');
+    const text = await response.text();
+    
+    // JSONP レスポンスをパース
+    let jsonStr = text;
+    if (text.includes('window.onQuestionsLoaded(')) {
+      jsonStr = text.replace('window.onQuestionsLoaded(', '').replace(')', '').replace(/;$/, '');
+    }
+    
+    const data = JSON.parse(jsonStr);
+    
+    if (data.ok) {
+      const QD = data.QD;
+      
+      // Q1 を構築
+      Q1_IDS = Object.keys(QD).filter(k => k.startsWith('q1-')).sort();
+      Q1_TEXTS = Q1_IDS.map(id => QD[id].text || '');
+      Q1_LABELS = Q1_IDS.map((_, i) => `(${i+1})`);
+      
+      // Q2 を構築
+      Q2_DEF = Object.keys(QD)
+        .filter(k => k.startsWith('q2-'))
+        .sort()
+        .map(id => QD[id]);
+      
+      // Q3 を構築
+      Q3_IDS = ['q3-21', 'q3-22'];
+      Q3_LABELS = ['(21)', '(22)'];
+      
+      // Q4A, Q4B を構築
+      Q4A_DEF = Object.keys(QD)
+        .filter(k => k.startsWith('q4-') && parseInt(k.split('-')[1]) <= 25)
+        .sort()
+        .map(id => QD[id]);
+      
+      Q4B_DEF = Object.keys(QD)
+        .filter(k => k.startsWith('q4-') && parseInt(k.split('-')[1]) > 25)
+        .sort()
+        .map(id => QD[id]);
+      
+      return true;
+    }
+  } catch (error) {
+    console.error('GAS データ取得エラー:', error);
+    return false;
+  }
+}
 
 // リスニング状態
 let lisIdx=0;
