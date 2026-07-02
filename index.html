@@ -343,6 +343,28 @@ button ruby rt{color:inherit}
     display:block!important;
   }
 
+  /* ===== リスニング 解答解説印刷 ===== */
+  /* page-listening 表示中の印刷：lis-result のみ表示 */
+  #page-listening #lis-start,
+  #page-listening #lis-quiz,
+  #page-listening #lis-card,
+  #page-listening .lis-tabs,
+  #page-listening .prog-wrap { display:none!important; }
+  /* lis-result は style="display:block" で表示中なので上書きして確実に表示 */
+  #page-listening #lis-result { display:block!important; }
+  /* 結果画面内のボタン類は非表示 */
+  #page-listening #lis-result button { display:none!important; }
+  /* 選択肢の色を印刷でも再現 */
+  #page-listening #lis-result [style*="background:#e1f5ee"] {
+    background:#e1f5ee!important; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
+  }
+  #page-listening #lis-result [style*="background:#faece7"] {
+    background:#faece7!important; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
+  }
+  #page-listening #lis-result [style*="background:#f0f6ff"] {
+    background:#f0f6ff!important; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
+  }
+
   /* ページ余白設定 */
   @page{margin:15mm 12mm;}
 
@@ -1610,7 +1632,6 @@ function showLisPartResult(){
       <div style="margin-top:1rem;">${reviewHTML}</div>
     </div>
     <button onclick="sendResults('${sendMode}')" class="send-btn-blue">📩 ${partLabel}の結果を送信する</button>
-    <button onclick="printSection('listening','answer')" style="width:100%;padding:11px;background:#f0f6ff;color:#1a4a8a;border:1px solid #b8d0f5;border-radius:var(--rsm);font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">🖨️ ${partLabel}の解答解説を印刷する</button>
     ${!isLast?`<button onclick="startNextPart(${part})" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(37,99,192,.35);margin-bottom:.6rem;">${nextPartLabel}</button>`:''}
     ${isLast?`<button onclick="showLisAllResult()" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">🏆 <ruby>全体<rt>ぜんたい</rt></ruby>の<ruby>結果<rt>けっか</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</button>`:''}
     ${otherPartsHTML}
@@ -1642,7 +1663,6 @@ function showLisAllResult(){
       <p style="text-align:center;font-size:.88rem;color:var(--muted);line-height:1.7;">${msg}</p>
     </div>
     <button onclick="sendResults('listening')" class="send-btn-blue">📩 リスニング全体の結果を送信する</button>
-    <button onclick="printSection('listening','answer')" style="width:100%;padding:11px;background:#f0f6ff;color:#1a4a8a;border:1px solid #b8d0f5;border-radius:var(--rsm);font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">🖨️ リスニング全体の解答解説を印刷する</button>
     <button onclick="restartListening()" style="width:100%;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:var(--rsm);font-size:.85rem;cursor:pointer;">🔄 もう一度挑戦する</button>
   `;
   updateScore();saveState();
@@ -1951,7 +1971,6 @@ function loadState(){
           <p style="text-align:center;font-size:.88rem;color:var(--muted);line-height:1.7;">${msg}</p>
         </div>
         <button onclick="sendResults('listening')" class="send-btn-blue">📩 リスニング全体の結果を送信する</button>
-        <button onclick="printSection('listening','answer')" style="width:100%;padding:11px;background:#f0f6ff;color:#1a4a8a;border:1px solid #b8d0f5;border-radius:var(--rsm);font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">🖨️ リスニング全体の解答解説を印刷する</button>
         <button onclick="restartListening()" style="width:100%;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:var(--rsm);font-size:.85rem;cursor:pointer;">🔄 もう一度挑戦する</button>
       `;
       result.style.display='block';
@@ -2241,34 +2260,13 @@ function printSection(section, mode){
   if(mode === 'answer'){
     try{
       if(section === 'listening'){
-        // リスニング：lis-result の内容だけを新規ウィンドウで印刷
+        // リスニング：@media print CSSで制御するため、ここでは何もしない
+        // （lis-result が表示中であれば印刷時も表示される）
         if(!resultArea || resultArea.style.display === 'none' || resultArea.innerHTML.trim() === ''){
           alert('先に解答を完了して解答解説を表示してから印刷してください。');
           return;
         }
-        const printWin = window.open('','_blank','width=860,height=960');
-        printWin.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>英検準2級 Set2 リスニング 解答解説<\/title>'
-          + '<style>'
-          + 'body{font-family:\'Helvetica Neue\',Arial,\'Hiragino Kaku Gothic ProN\',\'Hiragino Sans\',Meiryo,sans-serif;font-size:13px;color:#111;margin:1.5cm 1.8cm;}'
-          + 'ruby rt{font-size:.65em;}'
-          + '.lis-result-card{border:1px solid #ccc;border-radius:8px;padding:16px;margin-bottom:12px;}'
-          + '.lis-review-item{border:1px solid #ddd;border-radius:6px;padding:10px;margin-bottom:8px;page-break-inside:avoid;}'
-          + '.lis-review-item.ok{border-color:#86efac;background:#f0fdf4;}'
-          + '.lis-review-item.ng{border-color:#fca5a5;background:#fff1f1;}'
-          + '.score-circle{text-align:center;margin:10px 0;}'
-          + '.sc-n{font-size:2.5em;font-weight:700;color:#1a4a8a;}'
-          + '.sc-d{font-size:1.2em;color:#666;}'
-          + '.section-scores{display:flex;gap:16px;justify-content:center;margin:8px 0;}'
-          + '.ss-item{text-align:center;} .ss-l{font-size:11px;color:#666;} .ss-v{font-size:15px;font-weight:700;color:#1a4a8a;}'
-          + 'button{display:none!important;}'
-          + '@page{margin:15mm 12mm;}'
-          + '<\/style><\/head><body>');
-        printWin.document.write(resultArea.innerHTML);
-        printWin.document.write('<\/body><\/html>');
-        printWin.document.close();
-        printWin.focus();
-        setTimeout(function(){ printWin.print(); printWin.close(); }, 600);
-        return;
+        // そのままwindow.print()へ進む（下の pages.forEach で他ページを隠す）
       } else if(['q1','q2','q3','q4'].includes(section)){
         const all = getAllQids(section);
         let html = '<div class="score-banner partial"><ruby>解答<rt>かいとう</rt></ruby>・<ruby>解説<rt>かいせつ</rt></ruby></div>';
