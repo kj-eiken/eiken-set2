@@ -348,28 +348,6 @@ button ruby rt{color:inherit}
     display:block!important;
   }
 
-  /* ===== リスニング 解答解説印刷 ===== */
-  /* page-listening 表示中の印刷：lis-result のみ表示 */
-  #page-listening #lis-start,
-  #page-listening #lis-quiz,
-  #page-listening #lis-card,
-  #page-listening .lis-tabs,
-  #page-listening .prog-wrap { display:none!important; }
-  /* lis-result は style="display:block" で表示中なので上書きして確実に表示 */
-  #page-listening #lis-result { display:block!important; }
-  /* 結果画面内のボタン類は非表示 */
-  #page-listening #lis-result button { display:none!important; }
-  /* 選択肢の色を印刷でも再現 */
-  #page-listening #lis-result [style*="background:#e1f5ee"] {
-    background:#e1f5ee!important; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
-  }
-  #page-listening #lis-result [style*="background:#faece7"] {
-    background:#faece7!important; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
-  }
-  #page-listening #lis-result [style*="background:#f0f6ff"] {
-    background:#f0f6ff!important; -webkit-print-color-adjust:exact!important; print-color-adjust:exact!important;
-  }
-
   /* ページ余白設定 */
   @page{margin:15mm 12mm;}
 
