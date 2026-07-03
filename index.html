@@ -614,7 +614,7 @@ button ruby rt{color:inherit}
 <div class="page active" id="page-home">
   <div class="home-header">
     <div class="home-title"><ruby>英検<rt>えいけん</rt></ruby><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby> <ruby>演習<rt>えんしゅう</rt></ruby>アプリ</div>
-    <div class="home-sub">Set 1 ― <ruby>大問<rt>だいもん</rt></ruby>1〜6 ＋ <ruby>リスニング<rt></rt></ruby></div>
+    <div class="home-sub">Set 2 ― <ruby>大問<rt>だいもん</rt></ruby>1〜6 ＋ <ruby>リスニング<rt></rt></ruby></div>
   </div>
 
   <div id="restore-msg" style="display:none;background:#e1f5ee;border:1px solid #0f6e56;border-radius:var(--rsm);padding:.6rem 1rem;font-size:13px;color:#0f6e56;margin-bottom:1rem;"></div>
@@ -693,7 +693,7 @@ button ruby rt{color:inherit}
         <div class="sc-badge listening-badge">30<ruby>問<rt>もん</rt></ruby></div>
       </div>
       <div class="sc-title"><ruby>リスニング<rt></rt></ruby>（<ruby>第<rt>だい</rt></ruby>1<ruby>部<rt>ぶ</rt></ruby>〜<ruby>第<rt>だい</rt></ruby>3<ruby>部<rt>ぶ</rt></ruby>）</div>
-      <div class="sc-sub">Set 1</div>
+      <div class="sc-sub">Set 2</div>
       <!-- 部ごとのボックス -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:.6rem;">
         <div style="background:#fff;border:1px solid var(--blue-light);border-radius:var(--rsm);padding:6px 4px;text-align:center;">
@@ -796,7 +796,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q1">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;"><ruby>英検<rt>えいけん</rt></ruby><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby> <ruby>演習<rt>えんしゅう</rt></ruby>アプリ Set1 ― <ruby>大問<rt>だいもん</rt></ruby>1</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;"><ruby>英検<rt>えいけん</rt></ruby><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby> <ruby>演習<rt>えんしゅう</rt></ruby>アプリ Set2 ― <ruby>大問<rt>だいもん</rt></ruby>1</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -823,7 +823,7 @@ button ruby rt{color:inherit}
 <div class="page" id="page-q2">
   <div class="print-header">
     <div style="display:flex;justify-content:space-between;align-items:baseline;">
-      <span style="font-size:13px;font-weight:700;color:#1a3a6e;"><ruby>英検<rt>えいけん</rt></ruby><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby> <ruby>演習<rt>えんしゅう</rt></ruby>アプリ Set1 ― <ruby>大問<rt>だいもん</rt></ruby>2</span>
+      <span style="font-size:13px;font-weight:700;color:#1a3a6e;"><ruby>英検<rt>えいけん</rt></ruby><ruby>準<rt>じゅん</rt></ruby>2<ruby>級<rt>きゅう</rt></ruby> <ruby>演習<rt>えんしゅう</rt></ruby>アプリ Set2 ― <ruby>大問<rt>だいもん</rt></ruby>2</span>
       <span style="font-size:10px;color:#555;">© 2026 東進こども英語塾</span>
     </div>
   </div>
@@ -3139,7 +3139,7 @@ function adminDownloadCSV() {
   const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = '英検準2級Set1_結果_' + fmtDateFile() + '.csv';
+  a.href = url; a.download = '英検準2級Set2_結果_' + fmtDateFile() + '.csv';
   a.click(); URL.revokeObjectURL(url);
 }
 
@@ -3162,7 +3162,7 @@ function adminDownloadExcel() {
   const blob = new Blob(['﻿' + html], {type:'application/vnd.ms-excel;charset=utf-8;'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = '英検準2級Set1_結果_' + fmtDateFile() + '.xls';
+  a.href = url; a.download = '英検準2級Set2_結果_' + fmtDateFile() + '.xls';
   a.click(); URL.revokeObjectURL(url);
 }
 
