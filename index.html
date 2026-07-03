@@ -277,50 +277,26 @@ button ruby rt{color:inherit}
 
 /* ===== @media print ===== */
 @media print{
-  /* 印刷時に非表示にするUI */
-  .nav,
-  .login-overlay,
-  .back-btn,
-  .action-row,
-  .prog-wrap,
-  .prog-label,
-  .restore-msg,
-  .print-section,
-  .photo-submit-box,
-  #restore-msg,
-  .site-footer{display:none!important;}
-
-  /* ページ全体 */
-  body{background:#fff;font-size:12px;color:#000;}
-  /* 全ページを非表示にして、activeなページのみ表示 */
+  /* 全ページ非表示 → activeなページのみ表示（見えているものをそのまま印刷） */
+  html{height:auto!important;}
+  body{height:auto!important;overflow:visible!important;background:#fff!important;font-size:12px;color:#000;}
   .page{display:none!important;}
-  .page.active{display:block!important;max-width:100%;padding:.5rem 1rem 1rem;margin:0;}
-  /* data-print-hide はprintSection()経由の場合の念のため残す */
-  .page[data-print-hide]{display:none!important;}
+  .page.active{display:block!important;width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;overflow:visible!important;padding:0.5rem 1rem 1rem!important;margin:0!important;}
 
-  /* リスニングページ：lis-result のみ表示、その他は非表示 */
+  /* ナビバーは印刷不要 */
+  .nav{display:none!important;}
+
+  /* ログイン前はログイン画面のみ印刷 */
+  body:not(.logged-in) .page{display:none!important;}
+  body:not(.logged-in) .login-overlay{display:block!important;position:static!important;height:auto!important;}
+  body.logged-in .login-overlay{display:none!important;}
+
+  /* リスニング：lis-resultのみ表示 */
   #page-listening #lis-start{display:none!important;}
   #page-listening #lis-quiz{display:none!important;}
   #page-listening #lis-result{display:block!important;}
-  #page-listening #lis-result button{display:none!important;}
 
-  /* 著作権ヘッダー（印刷時のみ表示） */
-  .print-header{display:block!important;border-bottom:2px solid #1a3a6e;padding-bottom:.4rem;margin-bottom:.8rem;}
-
-  /* 著作権フッター（印刷時のみ表示） */
-  .print-footer{display:block!important;border-top:1px solid #ccc;padding-top:.4rem;margin-top:1rem;font-size:10px;color:#555;text-align:center;}
-
-  /* 選択肢・解説の印刷調整 */
-  .choice,.lis-choice{border:1px solid #aaa;background:#fff!important;}
-  .choice.show-ans,.lis-choice.show-ans{background:#e1f5ee!important;border-color:#0f6e56!important;}
-  .choice.wrong,.lis-choice.wrong{background:#faece7!important;border-color:#993c1d!important;}
-  .passage-box,.email-box,.conv-box{border:1px solid #aaa;page-break-inside:avoid;}
-  .q-block,.result-q{page-break-inside:avoid;}
-  /* 問題用紙モード（print-answer-onlyなし）では result-area を常に非表示 */
-  .result-area{display:none!important;}
-
-  /* ===== 解答・解説のみ印刷モード ===== */
-  /* body.print-answer-only のとき、問題部分を非表示にする */
+  /* 解答解説モード（beforeprintで自動付与） */
   body.print-answer-only .sec-hdr,
   body.print-answer-only .q-block,
   body.print-answer-only .passage-box,
@@ -340,51 +316,25 @@ button ruby rt{color:inherit}
   body.print-answer-only #panel-type,
   body.print-answer-only #panel-photo,
   body.print-answer-only #panel6-type,
-  body.print-answer-only #panel6-photo {
-    display:none!important;
-  }
+  body.print-answer-only #panel6-photo{display:none!important;}
+  .result-area{display:none!important;}
   body.print-answer-only .result-area,
-  body.print-answer-only .result-area.show {
-    display:block!important;
-  }
+  body.print-answer-only .result-area.show{display:block!important;}
 
-  /* ページ余白設定 */
+  /* 著作権ヘッダー・フッター（印刷時のみ表示） */
+  .print-header{display:block!important;border-bottom:2px solid #1a3a6e;padding-bottom:.4rem;margin-bottom:.8rem;}
+  .print-footer{display:block!important;border-top:1px solid #ccc;padding-top:.4rem;margin-top:1rem;font-size:10px;color:#555;text-align:center;}
+
+  /* 選択肢の色 */
+  .choice,.lis-choice{border:1px solid #aaa;background:#fff!important;}
+  .choice.show-ans,.lis-choice.show-ans{background:#e1f5ee!important;border-color:#0f6e56!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  .choice.wrong,.lis-choice.wrong{background:#faece7!important;border-color:#993c1d!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+
+  /* ページ余白 */
   @page{margin:15mm 12mm;}
 
-  /* ===== ライティング解答欄（印刷時） ===== */
-  /* 罫線ボックスを印刷でも表示 */
-  #page-q5 .email-body > div[style*="position:relative"],
-  #page-q6 div[style*="position:relative"][style*="border"] {
-    border: 1.5px solid #999 !important;
-    background: #fff !important;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
-  /* 罫線の背景画像を印刷でも表示 */
-  #page-q5 .email-body div[style*="repeating-linear-gradient"],
-  #page-q6 div[style*="repeating-linear-gradient"] {
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    background-image: repeating-linear-gradient(to bottom, transparent, transparent calc(100%/15 - 1px), #d0cdc7 calc(100%/15 - 1px), #d0cdc7 calc(100%/15)) !important;
-  }
-  /* textareaのサイズを固定・印刷用に調整 */
-  #q5-textarea, #q6-textarea {
-    min-height: 14cm !important;
-    height: 14cm !important;
-    font-size: 13px !important;
-    line-height: calc(14cm/15) !important;
-    color: #000 !important;
-    background: transparent !important;
-    border: none !important;
-    resize: none !important;
-    overflow: hidden !important;
-  }
-  /* タイプ送信パネルのみ表示、写メパネルは非表示 */
-  #panel-photo { display: none !important; }
-  #panel-type { display: block !important; }
-  /* タブ行を非表示 */
-  #page-q5 > .page > div[style*="border-bottom"],
-  div[style*="border-bottom:2px solid var(--border)"] { display: none !important; }
+  /* ライティング解答欄 */
+  #q5-textarea,#q6-textarea{min-height:14cm!important;height:14cm!important;font-size:13px!important;line-height:calc(14cm/15)!important;color:#000!important;background:transparent!important;border:none!important;resize:none!important;overflow:hidden!important;}
 }
 
 /* 印刷時のみ表示する要素（通常時は非表示） */
@@ -2397,6 +2347,7 @@ async function doLogin(){
 
   function loginSuccess(email, isAdmin){
     document.getElementById('login-overlay').style.display='none';
+      document.body.classList.add('logged-in');
     const sid=document.getElementById('student-id');
     const sname=document.getElementById('student-name');
     const semail=document.getElementById('student-email');
@@ -2573,6 +2524,7 @@ async function doLogin(){
   if (overlay) {
     new MutationObserver(function() {
       if (overlay.style.display === 'none') {
+        document.body.classList.add('logged-in');
         resetTimer(); // ログイン直後にタイマースタート
       }
     }).observe(overlay, {attributes:true, attributeFilter:['style']});
@@ -3196,6 +3148,34 @@ function submitPhotoQ6(){
 
 // buildQ1〜loadState はログイン後にapplyQuestions()内で呼び出すため、ここでは呼ばない
 // buildQ1();buildQ2();buildQ3();buildQ4();loadState();updateScore();
+
+// ===== Ctrl+P / ブラウザ印刷の自動対応 =====
+window.addEventListener('beforeprint', function() {
+  // 現在activeなページを特定
+  const activePage = document.querySelector('.page.active');
+  if (!activePage) return;
+  const pageId = activePage.id; // 例: 'page-q1', 'page-listening'
+
+  if (pageId === 'page-listening') {
+    // リスニング：lis-result が表示中なら解答解説モード
+    const lisResult = document.getElementById('lis-result');
+    if (lisResult && lisResult.style.display !== 'none' && lisResult.innerHTML.trim() !== '') {
+      document.body.classList.add('print-answer-only');
+    }
+  } else if (pageId && pageId.startsWith('page-q')) {
+    // 大問1〜6：result-area が show クラスを持っていれば解答解説モード
+    const resultArea = activePage.querySelector('.result-area');
+    if (resultArea && resultArea.classList.contains('show')) {
+      document.body.classList.add('print-answer-only');
+    }
+  }
+  // ホーム・管理画面は何もしない（そのまま印刷）
+});
+
+window.addEventListener('afterprint', function() {
+  document.body.classList.remove('print-answer-only');
+});
+
 </script>
 
 <!-- ===== 管理ダッシュボード ===== -->
