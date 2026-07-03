@@ -1158,6 +1158,7 @@ function checkSection(secKey){
 }
 
 function resetSection(secKey){
+  if(!confirm('学習中のデータがリセットされます。よろしいですか？')){return;}
   submitted[secKey]=false;
   // リセット時：下部送信ボタンを非表示
   const bottomSendReset=document.getElementById(secKey+'-send-bottom');
@@ -1173,10 +1174,7 @@ function goPage(id){
   const target = document.getElementById('page-'+id);
   if(target) target.classList.add('active');
   window.scrollTo(0,0);
-  // ホームに戻る時に解答解説を非表示
-  if(id === 'home'){
-    document.querySelectorAll('.result-area').forEach(el => el.classList.remove('show'));
-  }
+  // ホームに戻っても解答解説は保持する（大問ページに戻ったとき表示されるよう）
   // メインタブ・サブタブの更新
   updateNavTabs(id);
   // 管理ページ表示時に自動ロード
@@ -1284,9 +1282,30 @@ function getPartRange(part){
 function startListening(part){
   part=part||0;
 
+  // ===== localStorageから最新のsentScores・lisAnswered・lisScoresを補完 =====
+  // （GASデータ取得前にナビから呼ばれる場合の対策）
+  try{
+    const raw=localStorage.getItem(LS_KEY);
+    if(raw){
+      const st=JSON.parse(raw);
+      if(st.sentScores)Object.assign(sentScores,st.sentScores);
+      if(st.lisSubmitted)lisSubmitted=st.lisSubmitted;
+      if(st.lisAnswered){st.lisAnswered.forEach((v,i)=>{if(lisAnswered[i]===null)lisAnswered[i]=v;});}
+      if(st.lisScores)Object.assign(lisScores,st.lisScores);
+    }
+  }catch(e){}
+
   // ===== 解答解説表示中（全部完了済み）：リセットせず全体結果を再表示 =====
   if(lisSubmitted){
     showLisAllResult();
+    document.getElementById('lis-quiz').style.display='none';
+    document.getElementById('lis-start').style.display='none';
+    return;
+  }
+  // ===== 各部が送信済み：その部の解答解説を再表示 =====
+  const partSentMap={1:'lp1',2:'lp2',3:'lp3'};
+  if(part>0 && sentScores[partSentMap[part]]){
+    showLisPartResultForPart(part);
     document.getElementById('lis-quiz').style.display='none';
     document.getElementById('lis-start').style.display='none';
     return;
@@ -1353,9 +1372,15 @@ function continueListening(){
   renderLisQ();
 }
 function restartListening(){
+  if(!confirm('学習中のデータがリセットされます。よろしいですか？')){return;}
+  lisSubmitted=false;
+  lisScores={p1:0,p2:0,p3:0,total:0};
+  for(let i=0;i<30;i++){lisAnswered[i]=null;lisPlayCount[i]=0;}
   document.getElementById('lis-result').style.display='none';
+  document.getElementById('lis-quiz').style.display='none';
   document.getElementById('lis-start').style.display='block';
-  document.getElementById('lis-review-list').style.display='none';
+  const rl=document.getElementById('lis-review-list');if(rl)rl.style.display='none';
+  updateScore();saveState();
 }
 
 function renderLisQ(){
@@ -1489,6 +1514,75 @@ function lisNext(){
 function lisPrev(){if(lisIdx>lisRange[0]){lisIdx--;renderLisQ();window.scrollTo(0,0);}}
 
 // 部ごとの解答確認画面
+// 送信済みの部を解答解説として再表示する関数
+function showLisPartResultForPart(part){
+  lisRange=getPartRange(part);
+  lisMode=part;
+  const partQs=LIS_Q.filter(q=>q.part===part);
+  const partStart=LIS_Q.findIndex(q=>q.part===part);
+  let correct=0;
+  partQs.forEach((q,i)=>{if(lisAnswered[partStart+i]===q.answer)correct++;});
+  const pct=Math.round(correct/10*100);
+  let msg='';
+  if(pct>=80)msg='🎉 よくできました！';
+  else if(pct>=60)msg='👍 もう少し！復習しましょう。';
+  else msg='📚 音声をくり返し聴いて復習しましょう。';
+
+  const reviewHTML=partQs.map((q,i)=>{
+    const ans=lisAnswered[partStart+i];
+    const ok=ans===q.answer;
+    const rawScript=q.script||TTS_TEXT[partStart+i]||'';
+    const scriptFormatted=rawScript.replace(/\\n/g,'<br>').replace(/\n/g,'<br>');
+    const questionLine=q.question?`<div style="margin-top:6px;padding-top:6px;border-top:1px solid #c8daf5;font-size:.76rem;color:#1a4a8a;font-weight:700;">${q.question}</div>`:'';
+    return `<div class="lis-review-item ${ok?'ok':'ng'}" style="margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:4px;">
+        <span style="color:var(--muted)">No. ${q.no}</span>
+        <span style="padding:2px 8px;border-radius:10px;font-size:.72rem;font-weight:700;background:${ok?'#d1fae5':'#fee2e2'};color:${ok?'var(--green)':'var(--red)'}">${ok?'✅ 正解':'❌ 不正解'}</span>
+      </div>
+      <div style="background:#f0f6ff;border-radius:4px;padding:7px 10px;margin-bottom:6px;font-size:.76rem;color:#1a3a6e;line-height:1.8;">
+        <div style="font-size:.72rem;color:#2563c0;font-weight:700;margin-bottom:4px;">📝 スクリプト</div>
+        <div style="white-space:pre-wrap">${scriptFormatted}</div>
+        ${questionLine}
+      </div>
+      <p style="font-size:.82rem;color:var(--muted);margin-bottom:2px"><strong>正解：</strong>${q.choices[q.answer]}</p>
+      ${!ok?`<p style="font-size:.82rem;color:var(--muted);margin-bottom:2px"><strong><ruby>あなた<rt></rt></ruby>の<ruby>答<rt>こた</rt></ruby>え：</strong>${ans!==null?q.choices[ans]:'<ruby>未<rt>み</rt></ruby><ruby>回答<rt>かいとう</rt></ruby>'}</p>`:''}
+      <div style="margin:6px 0 4px;">
+        ${q.choices.map((c,ci)=>{
+          let bg='#fafaf8';let border='#cccac3';let fw='400';
+          if(ci===q.answer){bg='#e1f5ee';border='#0f6e56';fw='700';}
+          else if(ci===ans&&!ok){bg='#faece7';border='#993c1d';}
+          return `<div style="display:flex;gap:8px;align-items:flex-start;padding:6px 10px;margin-bottom:4px;border:1px solid ${border};border-radius:4px;background:${bg};font-size:.78rem;font-weight:${fw};">
+            <span style="flex-shrink:0;font-weight:700;">${ci+1}.</span><span>${c}</span>
+          </div>`;
+        }).join('')}
+      </div>
+      <p style="font-size:.76rem;color:var(--hint)">${q.explanation}</p>
+    </div>`;
+  }).join('');
+
+  const partLabel=['','第1部','第2部','第3部'][part];
+  const otherPartsHTML=`
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:.6rem;">
+      <button onclick="startListening(1)" style="padding:9px 4px;background:${part===1?'#1a4a8a':'#fff'};color:${part===1?'#fff':'#1a4a8a'};border:2px solid #2563c0;border-radius:var(--rsm);font-size:.82rem;font-weight:700;cursor:pointer;">第1部</button>
+      <button onclick="startListening(2)" style="padding:9px 4px;background:${part===2?'#1a4a8a':'#fff'};color:${part===2?'#fff':'#1a4a8a'};border:2px solid #2563c0;border-radius:var(--rsm);font-size:.82rem;font-weight:700;cursor:pointer;">第2部</button>
+      <button onclick="startListening(3)" style="padding:9px 4px;background:${part===3?'#1a4a8a':'#fff'};color:${part===3?'#fff':'#1a4a8a'};border:2px solid #2563c0;border-radius:var(--rsm);font-size:.82rem;font-weight:700;cursor:pointer;">第3部</button>
+    </div>`;
+
+  document.getElementById('lis-quiz').style.display='none';
+  const result=document.getElementById('lis-result');
+  result.style.display='block';
+  result.innerHTML=`
+    <div class="lis-result-card">
+      <p style="text-align:center;font-size:1rem;font-weight:700;color:#1a4a8a;margin-bottom:12px;">📊 ${PART_LABELS_LIS[part]} 結果</p>
+      <div class="score-circle"><span class="sc-n">${correct}</span><span class="sc-d">/ 10</span></div>
+      <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-bottom:1rem;">${msg}</p>
+      <div style="margin-top:1rem;">${reviewHTML}</div>
+    </div>
+    ${otherPartsHTML}
+    <button onclick="restartListening()" style="width:100%;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:var(--rsm);font-size:.85rem;cursor:pointer;">🔄 もう一度挑戦する</button>
+  `;
+}
+
 function showLisPartResult(){
   const part=LIS_Q[lisRange[0]].part;
   const partQs=LIS_Q.filter(q=>q.part===part);
@@ -1911,9 +2005,21 @@ function loadState(){
       document.getElementById('lis-start').style.display='none';
     }
 
+    // 各部が送信済みの場合、その部の解答解説を復元（lisSubmitted=falseでも）
+    if(!lisSubmitted){
+      const sentParts=[1,2,3].filter(p=>sentScores[{1:'lp1',2:'lp2',3:'lp3'}[p]]);
+      if(sentParts.length>0){
+        // 最後に送信した部の解答解説を表示
+        const lastPart=sentParts[sentParts.length-1];
+        showLisPartResultForPart(lastPart);
+        document.getElementById('lis-quiz').style.display='none';
+        document.getElementById('lis-start').style.display='none';
+      }
+    }
+
     // 途中再開ボタン
     const answered=lisAnswered.filter(a=>a!==null).length;
-    if(answered>0&&!lisSubmitted){
+    if(answered>0&&!lisSubmitted&&![1,2,3].some(p=>sentScores[{1:'lp1',2:'lp2',3:'lp3'}[p]])){
       document.getElementById('lis-continue-btn').style.display='block';
       document.getElementById('lis-continue-no').textContent=(lisIdx+1);
     }
@@ -3299,4 +3405,4 @@ window.addEventListener('afterprint', function() {
   </div>
 </footer>
 </body>
-</html> 
+</html>
