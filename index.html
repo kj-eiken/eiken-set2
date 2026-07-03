@@ -292,12 +292,17 @@ button ruby rt{color:inherit}
 
   /* ページ全体 */
   body{background:#fff;font-size:12px;color:#000;}
-  .page{display:block!important;max-width:100%;padding:.5rem 1rem 1rem;margin:0;}
-
-  /* 現在表示中のページのみ印刷（ナビゲーションとホームは非表示） */
-  #page-home, #page-admin { display: none !important; }
-  /* 印刷対象以外の大問ページを隠す */
+  /* 全ページを非表示にして、activeなページのみ表示 */
+  .page{display:none!important;}
+  .page.active{display:block!important;max-width:100%;padding:.5rem 1rem 1rem;margin:0;}
+  /* data-print-hide はprintSection()経由の場合の念のため残す */
   .page[data-print-hide]{display:none!important;}
+
+  /* リスニングページ：lis-result のみ表示、その他は非表示 */
+  #page-listening #lis-start{display:none!important;}
+  #page-listening #lis-quiz{display:none!important;}
+  #page-listening #lis-result{display:block!important;}
+  #page-listening #lis-result button{display:none!important;}
 
   /* 著作権ヘッダー（印刷時のみ表示） */
   .print-header{display:block!important;border-bottom:2px solid #1a3a6e;padding-bottom:.4rem;margin-bottom:.8rem;}
