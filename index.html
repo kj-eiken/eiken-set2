@@ -2062,7 +2062,7 @@ function loadState(){
 }
 
 function clearState(){
-  if(!confirm('<ruby>保存<rt>ほぞん</rt></ruby>されたデータをリセットしますか？\n（すべての<ruby>解答<rt>かいとう</rt></ruby>・スコアが<ruby>消<rt>き</rt></ruby>えます）'))return;
+  if(!confirm('保存されたデータをリセットしますか？\n（すべての解答・スコアが消えます）'))return;
   localStorage.removeItem(LS_KEY);location.reload();
 }
 
@@ -3405,4 +3405,4 @@ window.addEventListener('afterprint', function() {
   </div>
 </footer>
 </body>
-</html> 
+</html>
