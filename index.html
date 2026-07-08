@@ -2063,7 +2063,37 @@ function loadState(){
 
 function clearState(){
   if(!confirm('保存されたデータをリセットしますか？\n（すべての解答・スコアが消えます）'))return;
-  localStorage.removeItem(LS_KEY);location.reload();
+  // ログイン状態を維持したままデータのみリセット
+  localStorage.removeItem(LS_KEY);
+  scores={q1:0,q2:0,q3:0,q4:0,q5:0,q6:0};
+  submitted={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false};
+  sel={q1:{},q2:{},q3:{},q4:{}};
+  lisSubmitted=false;
+  lisScores={p1:0,p2:0,p3:0,total:0};
+  for(let i=0;i<30;i++){lisAnswered[i]=null;lisPlayCount[i]=0;}
+  ['q1','q2','q3','q4'].forEach(sec=>{
+    const ra=document.getElementById(sec+'-result');
+    if(ra){ra.classList.remove('show');ra.innerHTML='';}
+    const sb=document.getElementById(sec+'-submit');if(sb)sb.disabled=false;
+    const bb=document.getElementById(sec+'-send-bottom');if(bb)bb.style.display='none';
+  });
+  buildQ1();buildQ2();buildQ3();buildQ4();
+  submitted.q5=false;scores.q5=0;
+  const q5sb=document.getElementById('q5-submit');if(q5sb)q5sb.disabled=false;
+  const q5ta=document.getElementById('q5-textarea');if(q5ta)q5ta.value='';
+  const q5wc=document.getElementById('q5-wordcount');if(q5wc){q5wc.innerHTML='<ruby>語数<rt>ごすう</rt></ruby>：0<ruby>語<rt>ご</rt></ruby>';q5wc.style.color='#9b9890';}
+  const q5ra=document.getElementById('q5-result');if(q5ra){q5ra.classList.remove('show');q5ra.innerHTML='';}
+  submitted.q6=false;scores.q6=0;
+  const q6sb=document.getElementById('q6-submit');if(q6sb)q6sb.disabled=false;
+  const q6ta=document.getElementById('q6-textarea');if(q6ta)q6ta.value='';
+  const q6wc=document.getElementById('q6-wordcount');if(q6wc){q6wc.innerHTML='<ruby>語数<rt>ごすう</rt></ruby>：0<ruby>語<rt>ご</rt></ruby>';q6wc.style.color='#9b9890';}
+  const q6ra=document.getElementById('q6-result');if(q6ra){q6ra.classList.remove('show');q6ra.innerHTML='';}
+  const lr=document.getElementById('lis-result');if(lr)lr.style.display='none';
+  const lq=document.getElementById('lis-quiz');if(lq)lq.style.display='none';
+  const ls=document.getElementById('lis-start');if(ls)ls.style.display='block';
+  const rl=document.getElementById('lis-review-list');if(rl)rl.style.display='none';
+  updateScore();saveState();
+  goPage('home');
 }
 
 async function sendResults(mode){
