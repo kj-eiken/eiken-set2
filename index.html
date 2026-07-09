@@ -1098,9 +1098,16 @@ const lisPlayCount=new Array(30).fill(0);
 let lisAudioMode="native"; // "native" or "tts"
 
 // TTS音声リストを事前にロード（初回再生時の無音を防ぐ）
+let _ttsVoicesReady = false;
+function _loadTTSVoices(){
+  const v = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  if(v && v.length > 0){ _ttsVoicesReady = true; }
+}
 if(window.speechSynthesis){
-  window.speechSynthesis.getVoices();
-  window.speechSynthesis.addEventListener('voiceschanged', ()=>{ window.speechSynthesis.getVoices(); }, {once:true});
+  _loadTTSVoices();
+  window.speechSynthesis.onvoiceschanged = function(){ _loadTTSVoices(); };
+  // DOMContentLoaded後にも再試行
+  window.addEventListener('load', ()=>{ _loadTTSVoices(); });
 }
 let lisSubmitted=false;
 let lisScores={p1:0,p2:0,p3:0,total:0};
@@ -1354,9 +1361,10 @@ function startListening(part){
     }
   }
 
-  // ===== 解答中（一部回答済み）：確認 =====
+  // ===== 解答中（一部回答済み）：確認（同じ部の再選択はスキップ）=====
   const answered = lisAnswered.filter(a=>a!==null).length;
-  if(answered > 0){
+  const isSamePart = (part === lisMode);
+  if(answered > 0 && !isSamePart){
     if(!confirm('学習中のデータがリセットされます。よろしいですか？')){return;}
   }
 
@@ -1828,13 +1836,21 @@ function lisPlayAudio(idx,speed){
   speechSynthesis.cancel();
   if(currentAudio){currentAudio.pause();currentAudio=null;}
 
-  // getVoices()が初回空の場合、voiceschangedイベント後にリトライ
+  // getVoices()が初回空の場合、ポーリングでリトライ（最大2秒）
   let voices=speechSynthesis.getVoices();
   if(!voices || voices.length===0){
-    speechSynthesis.addEventListener('voiceschanged', function retry(){
-      speechSynthesis.removeEventListener('voiceschanged', retry);
-      playLis(idx, onStart, onEnd, speed);
-    },{once:true});
+    let retryCount=0;
+    const retryTimer=setInterval(()=>{
+      voices=speechSynthesis.getVoices();
+      retryCount++;
+      if(voices && voices.length>0){
+        clearInterval(retryTimer);
+        playLis(idx, onStart, onEnd, speed);
+      } else if(retryCount>=20){
+        clearInterval(retryTimer);
+        onEnd(); // タイムアウト
+      }
+    },100);
     return;
   }
   // 男声・女声を選ぶ（en-US優先）
