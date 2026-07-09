@@ -297,6 +297,15 @@ button ruby rt{color:inherit}
   #page-listening #lis-result{display:block!important;}
 
   /* 解答解説モード（beforeprintで自動付与） */
+  /* ①問題用紙モード：ボタン類を非表示 */
+  body.print-question-only .action-row,
+  body.print-question-only #q1-send-bottom,
+  body.print-question-only #q2-send-bottom,
+  body.print-question-only #q3-send-bottom,
+  body.print-question-only #q4-send-bottom,
+  body.print-question-only .retry-btn{display:none!important;}
+
+  /* ②解答解説モード：問題部分を非表示 */
   body.print-answer-only .sec-hdr,
   body.print-answer-only .q-block,
   body.print-answer-only .passage-box,
@@ -317,9 +326,14 @@ button ruby rt{color:inherit}
   body.print-answer-only #panel-photo,
   body.print-answer-only #panel6-type,
   body.print-answer-only #panel6-photo{display:none!important;}
-  .result-area{display:none!important;}
+  /* ①問題用紙モード：解答解説を非表示 */
+  body.print-question-only .result-area{display:none!important;}
+  /* ②解答解説モード：解答解説のみ表示 */
   body.print-answer-only .result-area,
   body.print-answer-only .result-area.show{display:block!important;}
+  /* ③画面印刷：result-areaはshowクラスがあれば表示、なければ非表示（画面状態そのまま） */
+  body:not(.print-question-only):not(.print-answer-only) .result-area:not(.show){display:none!important;}
+  body:not(.print-question-only):not(.print-answer-only) .result-area.show{display:block!important;}
 
   /* 著作権ヘッダー・フッター（印刷時のみ表示） */
   .print-header{display:block!important;border-bottom:2px solid #1a3a6e;padding-bottom:.4rem;margin-bottom:.8rem;}
@@ -2399,8 +2413,15 @@ function printSection(section, mode){
   }
 
   // 対象外ページを隠す・対象ページを表示
+  const prevActive = [];
   pages.forEach(p => {
-    if(p !== targetPage) p.setAttribute('data-print-hide','1');
+    if(p !== targetPage){
+      p.setAttribute('data-print-hide','1');
+      if(p.classList.contains('active')){
+        prevActive.push(p);
+        p.classList.remove('active');
+      }
+    }
   });
   targetPage.classList.add('active');
 
@@ -2433,8 +2454,8 @@ function printSection(section, mode){
         }
       }
     } else {
-      // 問題用紙モードでは確実に非表示にする
-      if(resultArea) resultArea.style.setProperty('display', 'none', 'important');
+      // ①問題用紙モード
+      document.body.classList.add('print-question-only');
     }
 
     window.print();
@@ -2442,8 +2463,11 @@ function printSection(section, mode){
     // 印刷ダイアログがキャンセルされた場合や例外が起きた場合でも、
     // 必ず元の表示状態に復元する（このブロックは確実に実行される）
     document.body.classList.remove('print-answer-only');
+    document.body.classList.remove('print-question-only');
     document.title = origTitle;
     pages.forEach(p => p.removeAttribute('data-print-hide'));
+    prevActive.forEach(p => p.classList.add('active'));
+    targetPage.classList.remove('active');
     if(resultArea) resultArea.style.removeProperty('display');
     if(resultWasShown && resultArea) resultArea.classList.add('show');
     if(savedTextareaEl) savedTextareaEl.value = savedTextareaValue;
@@ -3299,11 +3323,8 @@ window.addEventListener('beforeprint', function() {
       document.body.classList.add('print-answer-only');
     }
   } else if (pageId && pageId.startsWith('page-q')) {
-    // 大問1〜6：result-area が show クラスを持っていれば解答解説モード
-    const resultArea = activePage.querySelector('.result-area');
-    if (resultArea && resultArea.classList.contains('show')) {
-      document.body.classList.add('print-answer-only');
-    }
+    // 大問1〜6：Ctrl+Pは問題＋解答解説をそのまま印刷（print-answer-onlyは付けない）
+    // ※ 印刷ボタンからの場合はprintSection()内でクラスを制御するため、ここでは何もしない
   }
   // ホーム・管理画面は何もしない（そのまま印刷）
 });
