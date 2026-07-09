@@ -1096,6 +1096,12 @@ let lisIdx=0;
 const lisAnswered=new Array(30).fill(null);
 const lisPlayCount=new Array(30).fill(0);
 let lisAudioMode="native"; // "native" or "tts"
+
+// TTS音声リストを事前にロード（初回再生時の無音を防ぐ）
+if(window.speechSynthesis){
+  window.speechSynthesis.getVoices();
+  window.speechSynthesis.addEventListener('voiceschanged', ()=>{ window.speechSynthesis.getVoices(); }, {once:true});
+}
 let lisSubmitted=false;
 let lisScores={p1:0,p2:0,p3:0,total:0};
 let currentAudio=null;
@@ -1822,7 +1828,15 @@ function lisPlayAudio(idx,speed){
   speechSynthesis.cancel();
   if(currentAudio){currentAudio.pause();currentAudio=null;}
 
-  const voices=speechSynthesis.getVoices();
+  // getVoices()が初回空の場合、voiceschangedイベント後にリトライ
+  let voices=speechSynthesis.getVoices();
+  if(!voices || voices.length===0){
+    speechSynthesis.addEventListener('voiceschanged', function retry(){
+      speechSynthesis.removeEventListener('voiceschanged', retry);
+      playLis(idx, onStart, onEnd, speed);
+    },{once:true});
+    return;
+  }
   // 男声・女声を選ぶ（en-US優先）
   const enVoices=voices.filter(v=>v.lang==='en-US'||v.lang.startsWith('en'));
   // 女声：名前にFemale/Samantha/Victoria/Karen/Moira/Tessa/Allisonを含むもの優先
