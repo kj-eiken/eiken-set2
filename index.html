@@ -1089,7 +1089,7 @@ const Q4B_DEF=[{qid:'q4-26',label:'(26)',text:"What is true about the monarch bu
 const sel={q1:{},q2:{},q3:{},q4:{}};
 const submitted={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false};
 const scores={q1:0,q2:0,q3:0,q4:0,q5:0,q6:0,listening:0};
-const sentScores={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false,lp1:false,lp2:false,lp3:false};
+const sentScores={q1:false,q2:false,q3:false,q4:false,q5:false,q6:false,lp1:false,lp2:false,lp3:false,lp1_done:false,lp2_done:false,lp3_done:false};
 
 // リスニング状態
 let lisIdx=0;
@@ -1329,10 +1329,11 @@ function startListening(part){
     document.getElementById('lis-start').style.display='none';
     return;
   }
-  // ===== 各部が送信済み：その部の解答解説を再表示 =====
+  // ===== 各部が送信済み または nextPartで完了済み：「もう一度やる」ボタン付きで結果表示 =====
   const partSentMap={1:'lp1',2:'lp2',3:'lp3'};
-  if(part>0 && sentScores[partSentMap[part]]){
-    showLisPartResultForPart(part);
+  const partCompletedMap={1:'lp1_done',2:'lp2_done',3:'lp3_done'};
+  if(part>0 && (sentScores[partSentMap[part]] || sentScores[partCompletedMap[part]])){
+    showLisPartResultForPart(part, true); // true = 「もう一度やる」ボタン表示
     document.getElementById('lis-quiz').style.display='none';
     document.getElementById('lis-start').style.display='none';
     return;
@@ -1399,6 +1400,33 @@ function continueListening(){
   document.getElementById('lis-result').style.display='none';
   renderLisQ();
 }
+// 特定の部だけリセットしてやり直す
+function restartThisPart(part){
+  if(!confirm('この部のデータをリセットして、もう一度やり直しますか？'))return;
+  // その部の解答だけリセット
+  const range=getPartRange(part);
+  for(let i=range[0];i<=range[1];i++){lisAnswered[i]=null;lisPlayCount[i]=0;}
+  // 送信済み・完了済みフラグをリセット
+  const sentKey={1:'lp1',2:'lp2',3:'lp3'}[part];
+  const doneKey={1:'lp1_done',2:'lp2_done',3:'lp3_done'}[part];
+  if(sentKey)sentScores[sentKey]=false;
+  if(doneKey)sentScores[doneKey]=false;
+  // スコアリセット
+  if(part===1)lisScores.p1=0;
+  else if(part===2)lisScores.p2=0;
+  else if(part===3)lisScores.p3=0;
+  lisScores.total=lisScores.p1+lisScores.p2+lisScores.p3;
+  lisSubmitted=false;
+  document.getElementById('lis-result').style.display='none';
+  // その部をスタート
+  lisMode=part;
+  lisRange=getPartRange(part);
+  lisIdx=lisRange[0];
+  document.getElementById('lis-quiz').style.display='block';
+  renderLisQ();window.scrollTo(0,0);
+  updateScore();saveState();
+}
+
 function restartListening(){
   if(!confirm('学習中のデータがリセットされます。よろしいですか？')){return;}
   lisSubmitted=false;
@@ -1543,7 +1571,7 @@ function lisPrev(){if(lisIdx>lisRange[0]){lisIdx--;renderLisQ();window.scrollTo(
 
 // 部ごとの解答確認画面
 // 送信済みの部を解答解説として再表示する関数
-function showLisPartResultForPart(part){
+function showLisPartResultForPart(part, showRetry){
   lisRange=getPartRange(part);
   lisMode=part;
   const partQs=LIS_Q.filter(q=>q.part===part);
@@ -1599,6 +1627,9 @@ function showLisPartResultForPart(part){
   document.getElementById('lis-quiz').style.display='none';
   const result=document.getElementById('lis-result');
   result.style.display='block';
+  const retryBtnHTML = showRetry
+    ? `<button onclick="restartThisPart(${part})" style="width:100%;padding:13px;background:#fff;color:var(--red);border:1.5px solid var(--red);border-radius:var(--rsm);font-size:.9rem;font-weight:700;cursor:pointer;margin-bottom:.5rem;">🔄 もう一度やる</button>`
+    : '';
   result.innerHTML=`
     <div class="lis-result-card">
       <p style="text-align:center;font-size:1rem;font-weight:700;color:#1a4a8a;margin-bottom:12px;">📊 ${PART_LABELS_LIS[part]} 結果</p>
@@ -1606,8 +1637,8 @@ function showLisPartResultForPart(part){
       <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-bottom:1rem;">${msg}</p>
       <div style="margin-top:1rem;">${reviewHTML}</div>
     </div>
+    ${retryBtnHTML}
     ${otherPartsHTML}
-    <button onclick="restartListening()" style="width:100%;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:var(--rsm);font-size:.85rem;cursor:pointer;">🔄 もう一度挑戦する</button>
   `;
 }
 
@@ -1725,6 +1756,10 @@ function showLisAllResult(){
 
 // 次の部へ進む
 function startNextPart(currentPart){
+  // 現在の部を「完了済み」としてマーク（再訪時に「もう一度やる」を表示するため）
+  const doneMap={1:'lp1_done',2:'lp2_done',3:'lp3_done'};
+  if(doneMap[currentPart]) sentScores[doneMap[currentPart]]=true;
+  saveState();
   const nextPart=currentPart+1;
   const nextStart=LIS_Q.findIndex(q=>q.part===nextPart);
   const nextEnd=LIS_Q.map((q,i)=>q.part===nextPart?i:-1).filter(i=>i>=0).pop();
