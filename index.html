@@ -1877,14 +1877,14 @@ function lisPlayAudio(idx,speed){
     // 第2・3部：Questionテキストを末尾に追加（選択肢は含めない）
     // 第1部：会話文の後に選択肢4つを読み上げる（応答選択形式のため）
     let allLines;
+    let choiceVoicePrefix = 'F:'; // デフォルト女声
     if(q.part===1){
       const numberWords=['Number one.','Number two.','Number three.','Number four.'];
       const choiceLines = (q.choices||[]).map((c,ci)=>(numberWords[ci]||('Number '+(ci+1)+'.'))+' '+c.replace(/<[^>]+>/g,''));
       allLines = [...lines, ...choiceLines];
       // 選択肢は会話の最後の発言者の「相手」の声で読む
-      // 最後のM:/F:行を探して逆の性別を選択肢に適用
       const lastSpeakerLine = [...lines].reverse().find(l=>l.startsWith('M:')||l.startsWith('F:'));
-      const choiceVoicePrefix = lastSpeakerLine?.startsWith('M:') ? 'F:' : 'M:';
+      choiceVoicePrefix = lastSpeakerLine?.startsWith('M:') ? 'F:' : 'M:';
     } else if(q.question){
       allLines = [...lines, q.question.replace(/<[^>]+>/g,'')];
     } else {
