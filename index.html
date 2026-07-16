@@ -1878,7 +1878,8 @@ function lisPlayAudio(idx,speed){
     // 第1部：会話文の後に選択肢4つを読み上げる（応答選択形式のため）
     let allLines;
     if(q.part===1){
-      const choiceLines = (q.choices||[]).map(c=>c.replace(/<[^>]+>/g,''));
+      const numberWords=['Number one.','Number two.','Number three.','Number four.'];
+      const choiceLines = (q.choices||[]).map((c,ci)=>(numberWords[ci]||('Number '+(ci+1)+'.'))+' '+c.replace(/<[^>]+>/g,''));
       allLines = [...lines, ...choiceLines];
     } else if(q.question){
       allLines = [...lines, q.question.replace(/<[^>]+>/g,'')];
