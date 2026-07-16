@@ -1615,11 +1615,13 @@ function showLisPartResult(){
   let correct=0;
   partQs.forEach((q,i)=>{if(lisAnswered[partStart+i]===q.answer)correct++;});
 
-  // スコア保存
-  if(part===1)lisScores.p1=correct;
-  else if(part===2)lisScores.p2=correct;
-  else lisScores.p3=correct;
+  // スコア保存 + sentScoresをtrueにしてloadState時に結果画面を復元できるようにする
+  if(part===1){lisScores.p1=correct; sentScores.lp1=true;}
+  else if(part===2){lisScores.p2=correct; sentScores.lp2=true;}
+  else{lisScores.p3=correct; sentScores.lp3=true;}
   lisScores.total=lisScores.p1+lisScores.p2+lisScores.p3;
+  saveState();
+  updateScore();
 
   // 全問終了かどうか
   const isLast=(lisRange[1]===LIS_Q.length-1);
@@ -1683,8 +1685,8 @@ function showLisPartResult(){
       <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-bottom:1rem;">${msg}</p>
       <div style="margin-top:1rem;">${reviewHTML}</div>
     </div>
-    ${!isLast&&!sentScores[{1:'lp2',2:'lp3'}[part]]?`<button onclick="startListening(${part+1})" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(37,99,192,.35);margin-bottom:.6rem;">${nextPartLabel}</button>`:''}
-    ${!isLast&&sentScores[{1:'lp2',2:'lp3'}[part]]?`<button onclick="startListening(${part+1})" style="width:100%;padding:13px;background:var(--surface);color:#1a4a8a;border:2px solid #2563c0;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">${nextPartLabel.replace('進む','結果を見る')}</button>`:''}
+    <button onclick="sendResults('${sendMode}')" class="send-btn-blue">📩 ${partLabel}の<ruby>結果<rt>けっか</rt></ruby>を<ruby>送信<rt>そうしん</rt></ruby>する</button>
+    ${!isLast?`<button onclick="startNextPart(${part})" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(37,99,192,.35);margin-bottom:.6rem;">${nextPartLabel}</button>`:''}
     ${isLast?`<button onclick="showLisAllResult()" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">🏆 <ruby>全体<rt>ぜんたい</rt></ruby>の<ruby>結果<rt>けっか</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</button>`:''}
     <button onclick="resetListeningPart()" style="width:100%;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:var(--rsm);font-size:.85rem;cursor:pointer;margin-top:.4rem;">🔄 もう一度</button>
   `;
