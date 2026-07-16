@@ -1130,7 +1130,7 @@ function pick(secKey,qid,num,el){if(submitted[secKey])return;sel[secKey][qid]=nu
 function getAllQids(secKey){if(secKey==='q1')return Q1_IDS;if(secKey==='q2'){const ids=[];Q2_DEF.forEach(q=>{q.type==='pair'?ids.push(...q.subQids):ids.push(q.qid);});return ids;}if(secKey==='q3')return Q3_IDS;if(secKey==='q4')return [...Q4A_DEF,...Q4B_DEF].map(q=>q.qid);}
 function getLabel(secKey,qid){if(secKey==='q1')return Q1_LABELS[Q1_IDS.indexOf(qid)];if(secKey==='q2'){for(const q of Q2_DEF){if(q.type==='pair'){const i=q.subQids.indexOf(qid);if(i>=0)return q.subLabels[i];}else if(q.qid===qid)return q.label;}}if(secKey==='q3')return Q3_LABELS[Q3_IDS.indexOf(qid)];if(secKey==='q4'){for(const q of [...Q4A_DEF,...Q4B_DEF])if(q.qid===qid)return q.label;}}
 
-const RL=[['プログラム名','プログラムめい'],['間に合わない','まにあわない'],['長距離走後','ちょうきょりそうご'],['解答解説','かいとうかいせつ'],['重要表現','じゅうようひょうげん'],['化学物質','かがくぶっしつ'],['健康問題','けんこうもんだい'],['長距離走','ちょうきょりそう'],['観光客','かんこうきゃく'],['不正解','ふせいかい'],['接続詞','せつぞくし'],['形容詞','けいようし'],['句動詞','くどうし'],['慣用句','かんようく'],['選択肢','せんたくし'],['会話文','かいわぶん'],['具体的','ぐたいてき'],['否定的','ひていてき'],['危険性','きけんせい'],['居場所','いばしょ'],['送別会','そうべつかい'],['問題外','もんだいがい'],['証明書','しょうめいしょ'],['芸術家','げいじゅつか'],['体育館','たいいくかん'],['全生徒','ぜんせいと'],['初心者','しょしんしゃ'],['大丈夫','だいじょうぶ'],['誕生日','たんじょうび'],['本格的','ほんかくてき'],['一般的','いっぱんてき'],['修飾語','しゅうしょくご'],['展示物','てんじぶつ'],['修理中','しゅうりちゅう'],['表彰状','ひょうしょうじょう'],['個人的','こじんてき'],['領収書','りょうしゅうしょ'],['物理的','ぶつりてき'],['重要','じゅうよう'],['比較','ひかく'],['目的','もくてき'],['化学','かがく'],['細胞','さいぼう'],['太陽','たいよう'],['集団','しゅうだん'],['昆虫','こんちゅう'],['合計','ごうけい'],['完了','かんりょう'],['長文','ちょうぶん'],['読解','どっかい'],['英文','えいぶん'],['語彙','ごい'],['文法','ぶんぽう'],['熟語','じゅくご'],['正解','せいかい'],['解答','かいとう'],['解説','かいせつ'],['問題','もんだい'],['段落','だんらく'],['空欄','くうらん'],['補充','ほじゅう'],['内容','ないよう'],['意味','いみ'],['文脈','ぶんみゃく'],['適切','てきせつ'],['練習','れんしゅう'],['場面','ばめん'],['表現','ひょうげん'],['理由','りゆう'],['根拠','こんきょ'],['副詞','ふくし'],['動詞','どうし'],['名詞','めいし'],['購入','こうにゅう'],['返品','へんぴん'],['依頼','いらい'],['警告','けいこく'],['距離','きょり'],['確認','かくにん'],['試験','しけん'],['保管','ほかん'],['授業','じゅぎょう'],['学食','がくしょく'],['修理','しゅうり'],['企画','きかく'],['体温','たいおん'],['保護','ほご'],['活動','かつどう'],['参加','さんか'],['植物','しょくぶつ'],['減少','げんしょう'],['感知','かんち'],['自然','しぜん'],['直後','ちょくご'],['直前','ちょくぜん'],['全問','ぜんもん'],['挑戦','ちょうせん'],['本文','ほんぶん'],['説明','せつめい'],['価格','かかく'],['矛盾','むじゅん'],['一致','いっち'],['提案','ていあん'],['危険','きけん'],['公園','こうえん'],['連絡','れんらく'],['先生','せんせい'],['返答','へんとう'],['金属','きんぞく'],['友人','ゆうじん'],['質問','しつもん'],['削減','さくげん'],['方向','ほうこう'],['喫煙','きつえん'],['鉛筆','えんぴつ'],['転勤','てんきん'],['除外','じょがい'],['直接','ちょくせつ'],['信頼','しんらい'],['論外','ろんがい'],['決心','けっしん'],['植栽','しょくさい'],['推奨','すいしょう'],['完全','かんぜん'],['健康','けんこう'],['画廊','がろう'],['申込','もうしこみ'],['妥当','だとう'],['写真','しゃしん'],['日程','にってい'],['興味','きょうみ'],['計画','けいかく'],['評価','ひょうか'],['記憶','きおく'],['安全','あんぜん'],['訪問','ほうもん'],['食料','しょくりょう'],['仕組','しくみ'],['反応','はんのう'],['調理','ちょうり'],['共感','きょうかん'],['開催','かいさい'],['散歩','さんぽ'],['将来','しょうらい'],['医師','いし'],['会議室','かいぎしつ'],['店員','てんいん'],['試着','しちゃく'],['教科書','きょうかしょ'],['明示','めいじ'],['明記','めいき'],['明確','めいかく'],['共有','きょうゆう'],['大問','だいもん'],['生徒','せいと'],['予定','よてい'],['手伝','てつだ'],['世界','せかい'],['送別','そうべつ'],['採点','さいてん'],['返信','へんしん'],['模範','もはん'],['語数','ごすう'],['記述','きじゅつ'],['日常','にちじょう'],['困難','こんなん'],['身体','しんたい'],['全員','ぜんいん'],['電気','でんき'],['予約','よやく'],['評判','ひょうばん'],['職場','しょくば'],['有害','ゆうがい'],['建設','けんせつ'],['地形','ちけい'],['特殊','とくしゅ'],['想像','そうぞう'],['感覚','かんかく'],['少数','しょうすう'],['状況','じょうきょう'],['地元','じもと'],['回収','かいしゅう'],['得点','とくてん'],['研究','けんきゅう'],['毎年','まいとし'],['数年','すうねん'],['宮殿','きゅうでん'],['疑問','ぎもん'],['妨害','ぼうがい'],['表彰','ひょうしょう'],['方針','ほうしん'],['上手','じょうず'],['全部','ぜんぶ'],['送信','そうしん'],['結果','けっか'],['生徒番号','せいとばんごう'],['本部','ほんぶ'],['氏名','しめい'],['件名','けんめい'],['添付','てんぷ'],['撮影','さつえい'],['学校','がっこう'],['先月','せんげつ'],['機種','きしゅ'],['機嫌','きげん'],['毛布','もうふ'],['彫像','ちょうぞう'],['政策','せいさく'],['点数','てんすう'],['強調','きょうちょう'],['退屈','たいくつ'],['緊張','きんちょう'],['普段','ふだん'],['動作','どうさ'],['航海','こうかい'],['素材','そざい'],['不安','ふあん'],['協力','きょうりょく'],['関係','かんけい'],['発言','はつげん'],['発表','はっぴょう'],['廊下','ろうか'],['候補','こうほ'],['地元','じもと'],['開始','かいし'],['後文','こうぶん'],['縮小','しゅくしょう'],['謝罪','しゃざい'],['不自然','ふしぜん'],['建物','たてもの'],['話題','わだい'],['芸術施設','げいじゅつしせつ'],['健康上','けんこうじょう'],['食事','しょくじ'],['別々','べつべつ'],['本当','ほんとう'],['御所','ごしょ'],['増強','ぞうきょう'],['異動','いどう'],['未解答','みかいとう'],['未提出','みていしゅつ'],['未受験','みじゅけん'],['未回答','みかいとう'],['全体','ぜんたい'],['復元','ふくげん'],['現在','げんざい'],['利用','りよう'],['終了','しゅうりょう'],['期間','きかん'],['操作','そうさ'],['自動的','じどうてき'],['再度','さいど'],['成績','せいせき'],['合格','ごうかく'],['苦手','にがて'],['大切','たいせつ'],['更新','こうしん'],['最終','さいしゅう'],['年度','ねんど'],['次試験','じしけん'],['設定','せってい'],['素晴','すば'],['確認中','かくにんちゅう'],['提出済','ていしゅつず'],['不満','ふまん'],['帰宅','きたく'],['勉強','べんきょう'],['宿題','しゅくだい'],['部活','ぶかつ'],['趣味','しゅみ'],['旅行','りょこう'],['家族','かぞく'],['友達','ともだち'],['運動','うんどう'],['音楽','おんがく'],['読書','どくしょ'],['映画','えいが'],['料理','りょうり'],['掃除','そうじ'],['洗濯','せんたく'],['買物','かいもの'],['買い物','かいもの'],['買い物','かいもの'],['生活','せいかつ'],['社会','しゃかい'],['文化','ぶんか'],['歴史','れきし'],['地理','ちり'],['科学','かがく'],['数学','すうがく'],['国語','こくご'],['体育','たいいく'],['音楽室','おんがくしつ'],['図書館','としょかん'],['体育館','たいいくかん'],['保健室','ほけんしつ'],['職員室','しょくいんしつ'],['昼食','ちゅうしょく'],['夕食','ゆうしょく'],['朝食','ちょうしょく'],['夕方','ゆうがた'],['朝方','あさがた'],['午前','ごぜん'],['午後','ごご'],['今朝','けさ'],['今晩','こんばん'],['今夜','こんや'],['明朝','みょうちょう'],['明晩','みょうばん'],['昨日','きのう'],['一昨日','おととい'],['明後日','あさって'],['来週','らいしゅう'],['先週','せんしゅう'],['来月','らいげつ'],['今月','こんげつ'],['今年','ことし'],['来年','らいねん'],['去年','きょねん'],['場所','ばしょ'],['近所','きんじょ'],['周辺','しゅうへん'],['周囲','しゅうい'],['近く','ちかく'],['遠く','とおく'],['右側','みぎがわ'],['左側','ひだりがわ'],['上側','うえがわ'],['下側','したがわ'],['入口','いりぐち'],['出口','でぐち'],['受付','うけつけ'],['窓口','まどぐち'],['改札口','かいさつぐち'],['乗換口','のりかえぐち']];
+const RL=[['明日買う','あしたかう'],['お別れ','おわかれ'],['買う','かう'],['プログラム名','プログラムめい'],['間に合わない','まにあわない'],['長距離走後','ちょうきょりそうご'],['解答解説','かいとうかいせつ'],['重要表現','じゅうようひょうげん'],['化学物質','かがくぶっしつ'],['健康問題','けんこうもんだい'],['長距離走','ちょうきょりそう'],['観光客','かんこうきゃく'],['不正解','ふせいかい'],['接続詞','せつぞくし'],['形容詞','けいようし'],['句動詞','くどうし'],['慣用句','かんようく'],['選択肢','せんたくし'],['会話文','かいわぶん'],['具体的','ぐたいてき'],['否定的','ひていてき'],['危険性','きけんせい'],['居場所','いばしょ'],['送別会','そうべつかい'],['問題外','もんだいがい'],['証明書','しょうめいしょ'],['芸術家','げいじゅつか'],['体育館','たいいくかん'],['全生徒','ぜんせいと'],['初心者','しょしんしゃ'],['大丈夫','だいじょうぶ'],['誕生日','たんじょうび'],['本格的','ほんかくてき'],['一般的','いっぱんてき'],['修飾語','しゅうしょくご'],['展示物','てんじぶつ'],['修理中','しゅうりちゅう'],['表彰状','ひょうしょうじょう'],['個人的','こじんてき'],['領収書','りょうしゅうしょ'],['物理的','ぶつりてき'],['重要','じゅうよう'],['比較','ひかく'],['目的','もくてき'],['化学','かがく'],['細胞','さいぼう'],['太陽','たいよう'],['集団','しゅうだん'],['昆虫','こんちゅう'],['合計','ごうけい'],['完了','かんりょう'],['長文','ちょうぶん'],['読解','どっかい'],['英文','えいぶん'],['語彙','ごい'],['文法','ぶんぽう'],['熟語','じゅくご'],['正解','せいかい'],['解答','かいとう'],['解説','かいせつ'],['問題','もんだい'],['段落','だんらく'],['空欄','くうらん'],['補充','ほじゅう'],['内容','ないよう'],['意味','いみ'],['文脈','ぶんみゃく'],['適切','てきせつ'],['練習','れんしゅう'],['場面','ばめん'],['表現','ひょうげん'],['理由','りゆう'],['根拠','こんきょ'],['副詞','ふくし'],['動詞','どうし'],['名詞','めいし'],['購入','こうにゅう'],['返品','へんぴん'],['依頼','いらい'],['警告','けいこく'],['距離','きょり'],['確認','かくにん'],['試験','しけん'],['保管','ほかん'],['授業','じゅぎょう'],['学食','がくしょく'],['修理','しゅうり'],['企画','きかく'],['体温','たいおん'],['保護','ほご'],['活動','かつどう'],['参加','さんか'],['植物','しょくぶつ'],['減少','げんしょう'],['感知','かんち'],['自然','しぜん'],['直後','ちょくご'],['直前','ちょくぜん'],['全問','ぜんもん'],['挑戦','ちょうせん'],['本文','ほんぶん'],['説明','せつめい'],['価格','かかく'],['矛盾','むじゅん'],['一致','いっち'],['提案','ていあん'],['危険','きけん'],['公園','こうえん'],['連絡','れんらく'],['先生','せんせい'],['返答','へんとう'],['金属','きんぞく'],['友人','ゆうじん'],['質問','しつもん'],['削減','さくげん'],['方向','ほうこう'],['喫煙','きつえん'],['鉛筆','えんぴつ'],['転勤','てんきん'],['除外','じょがい'],['直接','ちょくせつ'],['信頼','しんらい'],['論外','ろんがい'],['決心','けっしん'],['植栽','しょくさい'],['推奨','すいしょう'],['完全','かんぜん'],['健康','けんこう'],['画廊','がろう'],['申込','もうしこみ'],['妥当','だとう'],['写真','しゃしん'],['日程','にってい'],['興味','きょうみ'],['計画','けいかく'],['評価','ひょうか'],['記憶','きおく'],['安全','あんぜん'],['訪問','ほうもん'],['食料','しょくりょう'],['仕組','しくみ'],['反応','はんのう'],['調理','ちょうり'],['共感','きょうかん'],['開催','かいさい'],['散歩','さんぽ'],['将来','しょうらい'],['医師','いし'],['会議室','かいぎしつ'],['店員','てんいん'],['試着','しちゃく'],['教科書','きょうかしょ'],['明示','めいじ'],['明記','めいき'],['明確','めいかく'],['共有','きょうゆう'],['大問','だいもん'],['生徒','せいと'],['予定','よてい'],['手伝','てつだ'],['世界','せかい'],['送別','そうべつ'],['採点','さいてん'],['返信','へんしん'],['模範','もはん'],['語数','ごすう'],['記述','きじゅつ'],['日常','にちじょう'],['困難','こんなん'],['身体','しんたい'],['全員','ぜんいん'],['電気','でんき'],['予約','よやく'],['評判','ひょうばん'],['職場','しょくば'],['有害','ゆうがい'],['建設','けんせつ'],['地形','ちけい'],['特殊','とくしゅ'],['想像','そうぞう'],['感覚','かんかく'],['少数','しょうすう'],['状況','じょうきょう'],['地元','じもと'],['回収','かいしゅう'],['得点','とくてん'],['研究','けんきゅう'],['毎年','まいとし'],['数年','すうねん'],['宮殿','きゅうでん'],['疑問','ぎもん'],['妨害','ぼうがい'],['表彰','ひょうしょう'],['方針','ほうしん'],['上手','じょうず'],['全部','ぜんぶ'],['送信','そうしん'],['結果','けっか'],['生徒番号','せいとばんごう'],['本部','ほんぶ'],['氏名','しめい'],['件名','けんめい'],['添付','てんぷ'],['撮影','さつえい'],['学校','がっこう'],['先月','せんげつ'],['機種','きしゅ'],['機嫌','きげん'],['毛布','もうふ'],['彫像','ちょうぞう'],['政策','せいさく'],['点数','てんすう'],['強調','きょうちょう'],['退屈','たいくつ'],['緊張','きんちょう'],['普段','ふだん'],['動作','どうさ'],['航海','こうかい'],['素材','そざい'],['不安','ふあん'],['協力','きょうりょく'],['関係','かんけい'],['発言','はつげん'],['発表','はっぴょう'],['廊下','ろうか'],['候補','こうほ'],['地元','じもと'],['開始','かいし'],['後文','こうぶん'],['縮小','しゅくしょう'],['謝罪','しゃざい'],['不自然','ふしぜん'],['建物','たてもの'],['話題','わだい'],['芸術施設','げいじゅつしせつ'],['健康上','けんこうじょう'],['食事','しょくじ'],['別々','べつべつ'],['本当','ほんとう'],['御所','ごしょ'],['増強','ぞうきょう'],['異動','いどう'],['未解答','みかいとう'],['未提出','みていしゅつ'],['未受験','みじゅけん'],['未回答','みかいとう'],['全体','ぜんたい'],['復元','ふくげん'],['現在','げんざい'],['利用','りよう'],['終了','しゅうりょう'],['期間','きかん'],['操作','そうさ'],['自動的','じどうてき'],['再度','さいど'],['成績','せいせき'],['合格','ごうかく'],['苦手','にがて'],['大切','たいせつ'],['更新','こうしん'],['最終','さいしゅう'],['年度','ねんど'],['次試験','じしけん'],['設定','せってい'],['素晴','すば'],['確認中','かくにんちゅう'],['提出済','ていしゅつず'],['不満','ふまん'],['帰宅','きたく'],['勉強','べんきょう'],['宿題','しゅくだい'],['部活','ぶかつ'],['趣味','しゅみ'],['旅行','りょこう'],['家族','かぞく'],['友達','ともだち'],['運動','うんどう'],['音楽','おんがく'],['読書','どくしょ'],['映画','えいが'],['料理','りょうり'],['掃除','そうじ'],['洗濯','せんたく'],['買物','かいもの'],['買い物','かいもの'],['買い物','かいもの'],['生活','せいかつ'],['社会','しゃかい'],['文化','ぶんか'],['歴史','れきし'],['地理','ちり'],['科学','かがく'],['数学','すうがく'],['国語','こくご'],['体育','たいいく'],['音楽室','おんがくしつ'],['図書館','としょかん'],['体育館','たいいくかん'],['保健室','ほけんしつ'],['職員室','しょくいんしつ'],['昼食','ちゅうしょく'],['夕食','ゆうしょく'],['朝食','ちょうしょく'],['夕方','ゆうがた'],['朝方','あさがた'],['午前','ごぜん'],['午後','ごご'],['今朝','けさ'],['今晩','こんばん'],['今夜','こんや'],['明朝','みょうちょう'],['明晩','みょうばん'],['昨日','きのう'],['一昨日','おととい'],['明後日','あさって'],['来週','らいしゅう'],['先週','せんしゅう'],['来月','らいげつ'],['今月','こんげつ'],['今年','ことし'],['来年','らいねん'],['去年','きょねん'],['場所','ばしょ'],['近所','きんじょ'],['周辺','しゅうへん'],['周囲','しゅうい'],['近く','ちかく'],['遠く','とおく'],['右側','みぎがわ'],['左側','ひだりがわ'],['上側','うえがわ'],['下側','したがわ'],['入口','いりぐち'],['出口','でぐち'],['受付','うけつけ'],['窓口','まどぐち'],['改札口','かいさつぐち'],['乗換口','のりかえぐち']];
 
 function ar(text){
   function isKanji(c){return c>='\u4e00'&&c<='\u9fff'||c==='々';}
@@ -1141,7 +1141,7 @@ function ar(text){
   // 既存のrubyタグ内の漢字を二重処理しないよう、rubyタグ部分をプレースホルダーで退避
   const rubyPhs={};let ri=0;
   text=text.replace(/<ruby[\s\S]*?<\/ruby>/g,(m)=>{const ph=`\x01${ri}\x01`;rubyPhs[ph]=m;ri++;return ph;});
-  const phs={};let i=0;for(const [w,r] of RL){if(text.includes(w)){const ph=`\x00${i}\x00`;text=text.split(w).join(ph);phs[ph]=buildRuby(w,r);i++;}}for(const [ph,tag] of Object.entries(phs))text=text.split(ph).join(tag);
+  const phs={};let i=0;for(const [w,r] of RL){if(text.includes(w)){const ph=`\x00${i}\x00`;text=text.split(w).join(ph);const tag=`<ruby>${w}<rt>${r}</rt></ruby>`;const ph2=`\x01${ri}\x01`;rubyPhs[ph2]=tag;ri++;phs[ph]=ph2;i++;}}for(const [ph,tag] of Object.entries(phs))text=text.split(ph).join(tag);
   // 退避したrubyタグを復元
   for(const [ph,tag] of Object.entries(rubyPhs))text=text.split(ph).join(tag);
   return text;
@@ -1155,14 +1155,14 @@ function answerOnlyCardHtml(qid, label){
     const isCorrect = c.n === d.correct;
     const cls = isCorrect ? 'rc rc-ok' : 'rc rc-normal';
     const icon = isCorrect ? '✓' : c.n;
-    ch += `<div class="${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.n}. ${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;
+    ch += `<div class="${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;
   });
   return `<div class="result-q"><div class="rq-header"><span class="rb rb-ok"><ruby>正解<rt>せいかい</rt></ruby>：${d.correct}</span><span class="rq-label">${label}</span></div><div class="rq-choices">${ch}</div><div class="point-box">📌 ${ar(d.point)}</div></div>`;
 }
 
 function resultCardHtml(qid,ansNum,label){
   const d=QD[qid];const ok=ansNum===d.correct;
-  let ch='';d.choices.forEach(c=>{const isC=c.n===d.correct,isU=c.n===ansNum;const cls=isC?'rc-ok':(isU&&!isC?'rc-ng':'rc-normal');const icon=isC?'✓':(isU&&!isC?'✗':c.n);ch+=`<div class="rc ${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.n}. ${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;});
+  let ch='';d.choices.forEach(c=>{const isC=c.n===d.correct,isU=c.n===ansNum;const cls=isC?'rc-ok':(isU&&!isC?'rc-ng':'rc-normal');const icon=isC?'✓':(isU&&!isC?'✗':c.n);ch+=`<div class="rc ${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;});
   return `<div class="result-q"><div class="rq-header"><span class="rb ${ok?'rb-ok':'rb-ng'}">${ok?'✓ <ruby>正解<rt>せいかい</rt></ruby>':'✗ <ruby>不正解<rt>ふせいかい</rt></ruby>'}</span><span class="rq-label">${label}</span></div><div class="rq-ans"><ruby>あなた<rt></rt></ruby>の<ruby>解答<rt>かいとう</rt></ruby>：<strong>${ansNum}</strong>　→　<ruby>正解<rt>せいかい</rt></ruby>：<strong>${d.correct}</strong></div><div class="rq-choices">${ch}</div><div class="point-box">📌 ${ar(d.point)}</div></div>`;
 }
 
@@ -1319,20 +1319,28 @@ function startListening(part){
     document.getElementById('lis-start').style.display='none';
     return;
   }
-  // ===== 各部が送信済み：その部の解答解説を再表示（別の部から来た場合のみ） =====
+  // ===== 遷移先の部がすでに送信済み：確認なしでその部の解答解説を再表示 =====
   const partSentMap={1:'lp1',2:'lp2',3:'lp3'};
-  if(part>0 && sentScores[partSentMap[part]] && part===lisMode){
+  if(part>0 && sentScores[partSentMap[part]]){
+    lisMode=part;
+    lisRange=getPartRange(part);
     showLisPartResultForPart(part);
     document.getElementById('lis-quiz').style.display='none';
     document.getElementById('lis-start').style.display='none';
+    saveState();
     return;
   }
 
-  // ===== 解答中（一部回答済み）：確認（同じ部の再選択はスキップ）=====
-  const answered = lisAnswered.filter(a=>a!==null).length;
+  // ===== 現在進行中の部に未送信の解答が残っている場合のみ確認 =====
   const isSamePart = (part === lisMode);
-  if(answered > 0 && !isSamePart){
-    if(!confirm('学習中のデータがリセットされます。よろしいですか？')){return;}
+  if(!isSamePart){
+    const curRange = lisMode>0 ? getPartRange(lisMode) : [0,29];
+    const curSentKey = partSentMap[lisMode];
+    const curAlreadySent = lisMode>0 ? !!sentScores[curSentKey] : false;
+    const curAnswered = lisAnswered.slice(curRange[0],curRange[1]+1).filter(a=>a!==null).length;
+    if(curAnswered>0 && !curAlreadySent){
+      if(!confirm('学習中のデータがリセットされます。よろしいですか？')){return;}
+    }
   }
 
   lisMode=part;
@@ -1340,7 +1348,8 @@ function startListening(part){
   lisIdx=lisRange[0];
   lisSubmitted=false;
   lisScores={p1:0,p2:0,p3:0,total:0};
-  for(let i=0;i<30;i++){lisAnswered[i]=null;lisPlayCount[i]=0;}
+  // ★ 開始する部の解答のみクリアする（他の部の解答・送信済み状態は保持）
+  for(let i=lisRange[0];i<=lisRange[1];i++){lisAnswered[i]=null;lisPlayCount[i]=0;}
   document.getElementById('lis-start').style.display='none';
   document.getElementById('lis-quiz').style.display='block';
   document.getElementById('lis-result').style.display='none';
@@ -1355,6 +1364,7 @@ function startListening(part){
     currentAudio=introAudio;
   }
   renderLisQ();
+  saveState();
 }
 function goListening(part){
   goPage('listening');
@@ -1673,8 +1683,8 @@ function showLisPartResult(){
       <p style="text-align:center;font-size:.88rem;color:var(--muted);margin-bottom:1rem;">${msg}</p>
       <div style="margin-top:1rem;">${reviewHTML}</div>
     </div>
-    <button onclick="sendResults('${sendMode}')" class="send-btn-blue">📩 ${partLabel}の結果を送信する</button>
-    ${!isLast?`<button onclick="startNextPart(${part})" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(37,99,192,.35);margin-bottom:.6rem;">${nextPartLabel}</button>`:''}
+    ${!isLast&&!sentScores[{1:'lp2',2:'lp3'}[part]]?`<button onclick="startListening(${part+1})" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(37,99,192,.35);margin-bottom:.6rem;">${nextPartLabel}</button>`:''}
+    ${!isLast&&sentScores[{1:'lp2',2:'lp3'}[part]]?`<button onclick="startListening(${part+1})" style="width:100%;padding:13px;background:var(--surface);color:#1a4a8a;border:2px solid #2563c0;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">${nextPartLabel.replace('進む','結果を見る')}</button>`:''}
     ${isLast?`<button onclick="showLisAllResult()" style="width:100%;padding:13px;background:linear-gradient(135deg,#1a4a8a,#2563c0);color:#fff;border:none;border-radius:var(--rsm);font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.6rem;">🏆 <ruby>全体<rt>ぜんたい</rt></ruby>の<ruby>結果<rt>けっか</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</button>`:''}
     <button onclick="resetListeningPart()" style="width:100%;padding:10px;background:var(--surface);color:var(--muted);border:1px solid var(--border2);border-radius:var(--rsm);font-size:.85rem;cursor:pointer;margin-top:.4rem;">🔄 もう一度</button>
   `;
@@ -1714,11 +1724,13 @@ function startNextPart(currentPart){
   const nextPart=currentPart+1;
   const nextStart=LIS_Q.findIndex(q=>q.part===nextPart);
   const nextEnd=LIS_Q.map((q,i)=>q.part===nextPart?i:-1).filter(i=>i>=0).pop();
+  lisMode=nextPart;
   lisRange=[nextStart,nextEnd];
   lisIdx=nextStart;
   document.getElementById('lis-result').style.display='none';
   document.getElementById('lis-quiz').style.display='block';
   renderLisQ();window.scrollTo(0,0);
+  saveState();
 }
 
 // TTS用テキストマップ（第1・2部の会話内容）
@@ -1981,7 +1993,7 @@ function saveState(){
       sel,submitted,scores,
       q5text:q5t?q5t.value:'',q6text:q6t?q6t.value:'',
       lisAnswered:[...lisAnswered],lisPlayCount:[...lisPlayCount],
-      lisIdx,lisSubmitted,lisScores,
+      lisIdx,lisSubmitted,lisScores,lisMode,
       savedAt:new Date().toISOString()
     };
     localStorage.setItem(LS_KEY,JSON.stringify(state));
@@ -2007,6 +2019,7 @@ function loadState(){
     if(state.lisIdx!==undefined)lisIdx=state.lisIdx;
     if(state.lisSubmitted!==undefined)lisSubmitted=state.lisSubmitted;
     if(state.lisScores)Object.assign(lisScores,state.lisScores);
+    if(state.lisMode!==undefined)lisMode=state.lisMode;
     // リスニング全体結果を復元
     if(lisSubmitted){
       const result=document.getElementById('lis-result');
@@ -2035,11 +2048,20 @@ function loadState(){
       document.getElementById('lis-start').style.display='none';
     }
 
-    // 途中再開ボタン
-    const answered=lisAnswered.filter(a=>a!==null).length;
-    if(answered>0&&!lisSubmitted){
-      document.getElementById('lis-continue-btn').style.display='block';
-      document.getElementById('lis-continue-no').textContent=(lisIdx+1);
+    // 送信済みの部がある場合はその結果画面を復元、それ以外は途中再開ボタンを表示
+    if(!lisSubmitted){
+      const partSentMap2={1:'lp1',2:'lp2',3:'lp3'};
+      const curSentKey=partSentMap2[lisMode];
+      if(lisMode>0 && sentScores[curSentKey]){
+        showLisPartResultForPart(lisMode);
+      } else {
+        const curRange=lisMode>0?getPartRange(lisMode):[0,29];
+        const curAnswered=lisAnswered.slice(curRange[0],curRange[1]+1).filter(a=>a!==null).length;
+        if(curAnswered>0){
+          document.getElementById('lis-continue-btn').style.display='block';
+          document.getElementById('lis-continue-no').textContent=(lisIdx+1);
+        }
+      }
     }
 
     ['q1','q2','q3','q4'].forEach(sk=>{
