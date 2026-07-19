@@ -1114,9 +1114,11 @@ let currentAudio=null;
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
+const shuffledChoices={};
 function mkChoices(qid,secKey){
   const d=QD[qid];
   const sh=shuffle([...d.choices]);
+  shuffledChoices[qid]=sh;
   return sh.map((c,i)=>`<div class="choice" id="ch-${qid}-${c.n}" onclick="pick('${secKey}','${qid}',${c.n},this)"><span class="cn">${i+1}</span><span>${c.t}</span></div>`).join('');
 }
 function mkConv(conv){
@@ -1151,10 +1153,11 @@ function answerOnlyCardHtml(qid, label){
   // 選択状態・正誤色なし。正解と解説だけを表示する印刷専用カード
   const d = QD[qid];
   let ch = '';
-  d.choices.forEach(c => {
+  const choices = shuffledChoices[qid] || d.choices;
+  choices.forEach((c,i) => {
     const isCorrect = c.n === d.correct;
     const cls = isCorrect ? 'rc rc-ok' : 'rc rc-normal';
-    const icon = isCorrect ? '✓' : c.n;
+    const icon = isCorrect ? '✓' : (i+1);
     ch += `<div class="${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;
   });
   return `<div class="result-q"><div class="rq-header"><span class="rb rb-ok"><ruby>正解<rt>せいかい</rt></ruby>：${d.correct}</span><span class="rq-label">${label}</span></div><div class="rq-choices">${ch}</div><div class="point-box">📌 ${ar(d.point)}</div></div>`;
@@ -1162,8 +1165,11 @@ function answerOnlyCardHtml(qid, label){
 
 function resultCardHtml(qid,ansNum,label){
   const d=QD[qid];const ok=ansNum===d.correct;
-  let ch='';d.choices.forEach(c=>{const isC=c.n===d.correct,isU=c.n===ansNum;const cls=isC?'rc-ok':(isU&&!isC?'rc-ng':'rc-normal');const icon=isC?'✓':(isU&&!isC?'✗':c.n);ch+=`<div class="rc ${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;});
-  return `<div class="result-q"><div class="rq-header"><span class="rb ${ok?'rb-ok':'rb-ng'}">${ok?'✓ <ruby>正解<rt>せいかい</rt></ruby>':'✗ <ruby>不正解<rt>ふせいかい</rt></ruby>'}</span><span class="rq-label">${label}</span></div><div class="rq-ans"><ruby>あなた<rt></rt></ruby>の<ruby>解答<rt>かいとう</rt></ruby>：<strong>${ansNum}</strong>　→　<ruby>正解<rt>せいかい</rt></ruby>：<strong>${d.correct}</strong></div><div class="rq-choices">${ch}</div><div class="point-box">📌 ${ar(d.point)}</div></div>`;
+  let ch='';
+  const choices2 = shuffledChoices[qid] || d.choices;
+  let userDisplayNum=0, correctDisplayNum=0;
+  choices2.forEach((c,i)=>{const isC=c.n===d.correct,isU=c.n===ansNum;const cls=isC?'rc-ok':(isU&&!isC?'rc-ng':'rc-normal');const icon=isC?'✓':(isU&&!isC?'✗':(i+1));if(isC)correctDisplayNum=i+1;if(isU)userDisplayNum=i+1;ch+=`<div class="rc ${cls}"><span class="rc-icon">${icon}</span><div class="rc-body"><div class="rc-en">${c.t}</div><div class="rc-ja">${ar(c.ja)}</div><div class="rc-reason">${ar(c.reason)}</div></div></div>`;});
+  return `<div class="result-q"><div class="rq-header"><span class="rb ${ok?'rb-ok':'rb-ng'}">${ok?'✓ <ruby>正解<rt>せいかい</rt></ruby>':'✗ <ruby>不正解<rt>ふせいかい</rt></ruby>'}</span><span class="rq-label">${label}</span></div><div class="rq-ans"><ruby>あなた<rt></rt></ruby>の<ruby>解答<rt>かいとう</rt></ruby>：<strong>${userDisplayNum}</strong>　→　<ruby>正解<rt>せいかい</rt></ruby>：<strong>${correctDisplayNum}</strong></div><div class="rq-choices">${ch}</div><div class="point-box">📌 ${ar(d.point)}</div></div>`;
 }
 
 function checkSection(secKey){
