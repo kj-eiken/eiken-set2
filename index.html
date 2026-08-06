@@ -1462,8 +1462,8 @@ function renderLisQ(){
       let cls='lis-choice';
       const isSel=lisAnswered[lisIdx]!==null && i===lisAnswered[lisIdx];
       if(isSel){cls+=' selected';}
-      return `<div class="${cls}" onclick="lisSelect(${i})" ${lisAnswered[lisIdx]!==null?'style="pointer-events:none"':''}
-        style="justify-content:center;padding:14px 10px;${lisAnswered[lisIdx]!==null?'pointer-events:none;':''}">
+      return `<div class="${cls}" onclick="lisSelect(${i})"
+        style="justify-content:center;padding:14px 10px;">
         <span class="lis-cn" style="font-size:1.1rem;margin:0;">${i+1}</span>
       </div>`;
     }).join('');
@@ -1519,7 +1519,6 @@ function renderLisQ(){
 }
 
 function lisSelect(choiceIdx){
-  if(lisAnswered[lisIdx]!==null)return;
   lisAnswered[lisIdx]=choiceIdx;
   renderLisQ();
 }
