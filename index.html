@@ -1471,7 +1471,7 @@ function renderLisQ(){
     chHTML=q.choices.map((c,i)=>{
       let cls='lis-choice';
       if(lisAnswered[lisIdx]!==null && i===lisAnswered[lisIdx]){cls+=' selected';}
-      return `<div class="${cls}" onclick="lisSelect(${i})" ${lisAnswered[lisIdx]!==null?'style="pointer-events:none"':''}><span class="lis-cn">${i+1}</span><span>${c}</span></div>`;
+      return `<div class="${cls}" onclick="lisSelect(${i})"><span class="lis-cn">${i+1}</span><span>${c}</span></div>`;
     }).join('');
   }
 
