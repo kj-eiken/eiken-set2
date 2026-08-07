@@ -1860,6 +1860,27 @@ function lisPlayAudio(idx,speed){
 
   // ② TTSモード または MP3なし → Web Speech API（TTS）で読み上げ
   if(!window.speechSynthesis){alert('このブラウザはTTSに対応していません。');return;}
+
+  // TTS再生中なら一時停止、一時停止中なら再開
+  if(window.speechSynthesis.speaking){
+    if(window.speechSynthesis.paused){
+      // 一時停止中 → 再開
+      window.speechSynthesis.resume();
+      if(audioIcon)audioIcon.textContent='⏸';
+      if(audioBtn)audioBtn.classList.add('playing');
+      if(waveform)waveform.classList.remove('hidden');
+      return;
+    } else {
+      // 再生中 → 一時停止
+      window.speechSynthesis.pause();
+      if(audioIcon)audioIcon.textContent='▶';
+      if(audioBtn)audioBtn.classList.remove('playing');
+      if(waveform)waveform.classList.add('hidden');
+      return;
+    }
+  }
+
+  // 新規再生
   speechSynthesis.cancel();
   if(currentAudio){currentAudio.pause();currentAudio=null;}
 
