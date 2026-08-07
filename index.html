@@ -1826,9 +1826,31 @@ function lisPlayAudio(idx,speed){
 
   // ① ネイティブモード かつ MP3がある場合 → 実音声再生
   if(lisAudioMode==='native' && q.audioSrc){
-    if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}
     if(currentUtterance){speechSynthesis.cancel();currentUtterance=null;}
-    const a=new Audio(q.audioSrc);currentAudio=a;
+    // 同じ問題・同じ速度で再生中なら一時停止、停止中なら再開
+    if(currentAudio && currentAudio._srcIdx===idx && currentAudio._speed===speed){
+      if(!currentAudio.paused){
+        // 再生中 → 一時停止
+        currentAudio.pause();
+        if(audioIcon)audioIcon.textContent='▶';
+        if(audioBtn)audioBtn.classList.remove('playing');
+        if(waveform)waveform.classList.add('hidden');
+        return;
+      } else {
+        // 一時停止中 → 再開
+        currentAudio.play().then(()=>{}).catch(()=>{});
+        if(audioIcon)audioIcon.textContent='⏸';
+        if(audioBtn)audioBtn.classList.add('playing');
+        if(waveform)waveform.classList.remove('hidden');
+        return;
+      }
+    }
+    // 別の問題 or 速度変更 → 最初から再生
+    if(currentAudio){currentAudio.pause();currentAudio.currentTime=0;}
+    const a=new Audio(q.audioSrc);
+    a._srcIdx=idx;
+    a._speed=speed;
+    currentAudio=a;
     a.playbackRate=speed;
     onStart();
     a.play().then(()=>{}).catch(()=>{});
@@ -3490,4 +3512,4 @@ window.addEventListener('afterprint', function() {
   </div>
 </footer>
 </body>
-</html> 
+</html>
